@@ -73,8 +73,7 @@ define("HALI_CONFIG", "hali-config.json");
         $usedTraits .= ";";
       }
 
-    $warning = "\n#-------- \n";
-    $content = "<?php \n/**\n * $camelCaseClassName\n */\n$requireList\n#new-requirements-insert-point$warning\n\n\nclass ".$camelCaseClassName.$extends.$parentClass.$implements.$implementedInterfaces."{\n$uses $usedTraits\n#new-traits-insert-point$warning\n\n  /**\n   * $camelCaseClassName\n   */\n  $constructorVisibility function __construct(){\n    #code here..\n  }\n\n}\n\n?>
+    $content = "<?php \n/**\n * $camelCaseClassName\n */\n$requireList\n#new-requirements-insert-point\n\n\nclass ".$camelCaseClassName.$extends.$parentClass.$implements.$implementedInterfaces."{\n$uses $usedTraits\n#new-traits-insert-point\n\n  /**\n   * $camelCaseClassName\n   */\n  $constructorVisibility function __construct(){\n    #code here..\n  }\n\n}\n\n?>
       ";
 
       fwrite($file, $content);
@@ -106,28 +105,30 @@ define("HALI_CONFIG", "hali-config.json");
   /**
    * Creates and interface given a classname
    */
-  function makeInterface($classname){
+  function makeInterface($interface){
     $api = $GLOBALS['api'];
 
-    $camelCaseClassName = ucwords($classname);
-    $interfaceName = $camelCaseClassName."Interface";
+    $interface = strtolower(preg_replace("/Interface/", "", $interface));
+    $camelCaseName = ucwords($interface);
 
-    $classname = strtolower($classname);
+    $interfaceName = $camelCaseName."Interface";
 
-    if(file_exists("$api->interfaces/$classname.interface.php")){
+    $interface = strtolower($interface);
+
+    if(file_exists("$api->interfaces/$interface.interface.php")){
       echo "$interfaceName Interface already exists\n";
       return $interfaceName;
     }
 
     echo "creating $interfaceName interface\n\n";
 
-    $cmd = "touch $api->interfaces/$classname.interface.php";
+    $cmd = "touch $api->interfaces/$interface.interface.php";
     $return = false;
     $output = [];
     exec($cmd, $output, $return);
    
     if($return == 0){
-      $file = fopen("$api->interfaces/$classname.interface.php", "w");
+      $file = fopen("$api->interfaces/$interface.interface.php", "w");
       $content = "<?php \n/**\n * $interfaceName\n */ \n\n\ninterface $interfaceName{\n\n\n}\n\n?>
       ";
 
@@ -139,29 +140,29 @@ define("HALI_CONFIG", "hali-config.json");
     return $interfaceName;
   }
 
-  function makeTrait($classname){
+  function makeTrait($trait){
 
     $api = $GLOBALS['api'];
-    
-    $camelCaseClassName = ucwords($classname);
-    $traitName = $camelCaseClassName."Trait";
+    $trait = strtolower(preg_replace("/Trait/", "", $trait));
+    $camelCaseTraitName = ucwords($trait);
+    $traitName = $camelCaseTraitName."Trait";
 
-    $classname = strtolower($classname);
+    $trait = strtolower($trait);
 
-    if(file_exists("$api->traits/$classname.trait.php")){
+    if(file_exists("$api->traits/$trait.trait.php")){
       echo "$traitName trait already exists\n";
       return $traitName;
     }
 
     echo "creating $traitName trait\n\n";
 
-    $cmd = "touch $api->traits/$classname.trait.php";
+    $cmd = "touch $api->traits/$trait.trait.php";
     $return = false;
     $output = [];
     exec($cmd, $output, $return);
    
     if($return == 0){
-      $file = fopen("$api->traits/$classname.trait.php", "w");
+      $file = fopen("$api->traits/$trait.trait.php", "w");
       $content = "<?php \n/**\n * $traitName\n */ \n\n\ntrait $traitName{\n\n\n}\n\n?>
       ";
 
@@ -396,7 +397,44 @@ define("HALI_CONFIG", "hali-config.json");
               }
             case "trait":
               {
-                makeTrait($argv[2]);
+                $traitName = makeTrait($argv[2]);
+                
+                if($traitName === false)break;
+                $trait = strtolower(preg_replace("/Trait/", "", $traitName));
+                $requirement = "$trait.trait.php";
+
+                $addToClass = false;
+                for($i = 3; $i < $argc; $i++){
+
+                  if($argv[$i] == "-a"){
+                    $addToClass = true;
+                    continue;
+                  }
+
+                  if(!$addToClass) continue;
+
+                  $className = strtolower($argv[$i]. ".class.php");
+
+                  if(!file_exists("$api->classes/$className")){
+                    echo "$className doesn't exist";
+                    continue;
+                  }
+
+                  $classContents = file_get_contents("$api->classes/$className");
+                
+          
+                  # add to requirement list
+                  $classContents = preg_replace("/#new-requirements-insert-point/", "require_once(__DIR__.'/../traits/$requirement');\n#new-requirements-insert-point", $classContents);
+
+                  #use the trait
+                  $classContents = preg_replace("/#new-traits-insert-point/", "use $traitName;\n#new-traits-insert-point", $classContents);
+
+                  $currentClass = fopen("$api->classes/$className", "w");
+                  fwrite($currentClass, $classContents);
+                  fclose($currentClass);
+
+                }
+
                 break;
               }
             case "interface":
