@@ -1,0 +1,19 @@
+You haven't written any command or you have typed -help
+
+The commands are:
+    -> make:logic [camel case fileName] [-d directoryName] [-na] - makes a logic file. 
+        The [-na] is optional and tells hali not to include authentication (na) file (auth.inc.php) at the top of the created logic script.
+        The [-d directoryName] tells hali to put the logic file in directoryName directory. If the directory doesn't exist, it is created and the default master.inc.php and auth.inc.php files are added to it.
+
+    -> make:class [camel case classname] [options] - tells hali to make a class in the classes folder with the specified class name.
+            [options]: 
+            -p classname: the parent class
+            -i interfaces1 interface2 ...: interfaces that this class implements
+            -t trait1 trait2 ...: traits that this class uses. check the readme.md for more information
+            --private: the makes the constructor of the class private
+            --re: this tells hali that the created class represents a real entity. Hence its response trait, defaults interface, constants interface, and table interface will be created. It will also be added to the Respond class.
+            --md: to create a directory in the logic folder with the name of the class.
+
+    -> make:interface [camel case classname] - tells hali to make an interface with the specified classnameInterface in the interfaces folder.
+    
+    -> make:trait [camel case classname] - tells hali to make a trait with name classnameTrait in the traits folder.

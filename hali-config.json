@@ -1,0 +1,20 @@
+{
+    "author": "HALI CARE",
+    "version": 1,
+    "apiPaths": 
+        {
+            "root": "./api",
+            "classes": "./api/classes",
+            "interfaces": "./api/interfaces",
+            "traits": "./api/traits",
+            "database": "./api/database",
+            "storage": "./api/storage",
+            "includes": "./api/includes"           
+        },
+    "consolePaths":
+        {
+            "root": "./console"
+        },
+    "commandsDoc": "hali_commands.txt"
+
+}
