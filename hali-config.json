@@ -3,17 +3,17 @@
     "version": 1,
     "apiPaths": 
         {
-            "root": "./api",
-            "classes": "./api/classes",
-            "interfaces": "./api/interfaces",
-            "traits": "./api/traits",
-            "database": "./api/database",
-            "storage": "./api/storage",
-            "includes": "./api/includes"           
+            "root": "api",
+            "classes": "api/classes",
+            "interfaces": "api/interfaces",
+            "traits": "api/traits",
+            "database": "api/database",
+            "storage": "api/storage",
+            "includes": "api/includes"           
         },
     "consolePaths":
         {
-            "root": "./console"
+            "root": "console"
         },
     "commandsDoc": "hali_commands.txt"
 

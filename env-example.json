@@ -1,0 +1,8 @@
+{
+    "env" : "development", 
+    "dbName": "your_db_name, example hali_db",
+    "dbHost": "your_database_server_name, example, localhost",
+    "dbUsername": "your_db_user_name_usually_root",
+    "dbPassword": "",
+    "dbPord": "3306"
+}
