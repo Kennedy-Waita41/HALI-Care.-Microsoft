@@ -1,14 +1,15 @@
 <?php
-    require_once(__DIR__."/../interfaces/user.interface.php");
     require_once(__DIR__."/../interfaces/userdefaults.interface.php");
     require_once(__DIR__."/../interfaces/usertable.interface.php");
     require_once(__DIR__."/../interfaces/userconstants.interface.php");
     require_once(__DIR__."/../traits/user.trait.php");
 
-    class User implements UserInterface, UserTableInterface, UserDefaultsInterface, UserConstantsInterface{
+    class User implements UserTableInterface, UserDefaultsInterface, UserConstantsInterface{
         use UserTrait;
 
-        protected $firstName,
+        protected 
+                $username, //will be set by the specific object
+                $firstName,
                 $lastName,
                 $email,
                 $phone,
@@ -31,14 +32,13 @@
 
         /**
          * Loads a user from the database;
-         * @param int $user_id
+         * @param int $userId
          */
-        public function loadUser($user_id){
-            $this->id = $user_id;
+        public function loadUser($userId){
+            $this->id = $userId;
             $dbManager = new DbManager();
-            $table = "user";
             $values = [$this->id];
-            $userInfo = $dbManager->query($table, ["*"], "id = ?", $values);
+            $userInfo = $dbManager->query(User::USER_TABLE, ["*"], User::USER_ID." = ?", $values);
 
             if($userInfo && count($userInfo) > 0){
                 $this->setFirstName($userInfo['firstname']);
@@ -60,20 +60,16 @@
          * Changes the user password when the user is logged in
          * @param string $oldPassword
          */
-        public function changePassword($oldPassword, $newPassword){
-            if(!$this->emailVerified){
-                return Respond::makeResponse("EVE", "Please verify your email before changing your password");
-            }
+        protected function changePassword($oldPassword, $newPassword){
 
             if(password_verify($oldPassword, $this->password)){
                  if(Utility::isPasswordStrong($newPassword) !== true){
                      return Utility::isPasswordStrong($newPassword);
                  }
                  $newPassword = password_hash($newPassword, PASSWORD_DEFAULT);
-                 $table = "user";
                  $values = [$newPassword];
                  $dbManager = new DbManager();
-                 if($dbManager->update($table, "user_password = ?", $values, "id = ?", [$this->id])){
+                 if($dbManager->update(User::USER_TABLE, "user_password = ?", $values, User::USER_ID."= ?", [$this->id])){
                      return Respond::OK();
                  }
                  return Respond::SQE();
@@ -83,61 +79,33 @@
 
         /**
          * Register a new user
-         * the email and password must be set
+         * the password must be set
          *  @return string 
          */
-        public function register(){
-            if($this->email == null){
-                return Respond::NEE(); //Null Email Error
-            }
+        protected function register(){
     
             if($this->password == null){
                 return Respond::NPE(); //Null Password Error
             }
-    
-            if(!Utility::checkEmail($this->email)){
-                return Respond::UEE();
-            }
-            $dbManager = new DbManager();
 
-            if(User::doesEmailExist($this->email, $dbManager)){
-                return Respond::EEE();
-            }
-    
+            $dbManager = new DbManager();
             if(Utility::isPasswordStrong($this->password) !== true){
                 return Utility::isPasswordStrong($this->password); 
             }
     
             $this->password = password_hash($this->password, PASSWORD_DEFAULT);
      
-            $tableName = "user";
-            $column_specs = ["email","user_type", "account_status" , "user_password","profile_image"];
-            $values = [$this->email, User::UTYPE_CUSTOMER, "enabled" , $this->password, User::DEFAULT_AVATAR];
+            $column_specs = ["user_password", "profile_image"];
+            $values = [$this->password, User::DEFAULT_AVATAR];
 
             try{
-                $insertId = $dbManager->insert($tableName, $column_specs, $values);
+                $insertId = $dbManager->insert(User::USER_TABLE, $column_specs, $values);
                 if($insertId != -1){
                     $this->id = $insertId;
-                    User::sendConfirmationEmail($this->id, $this->email, $dbManager);
-                    
-                    $sessionToken = bin2hex(openssl_random_pseudo_bytes(255));
-                    $dbManager->insert(User::SESSION_TABLE, ["userId", "session_token"], [$this->id, $sessionToken]);
-                    //Respond
-                    $Respond = json_encode([
-                        "token" => "$this->id-$sessionToken",
-                        "firstname" => "",
-                        "lastname" => "",
-                        "phone" => "",
-                        "email"=>$this->email,
-                        "profileImage" => User::DEFAULT_AVATAR,
-                        "message" => "Successfully signed up"
-                    ]);
-                    return Respond::makeResponse("OK", $Respond);
+                    return Respond::OK();
                 }
             }
-            catch(Exception $exception){
-                echo $exception->getMessage();
-            }
+            catch(Exception $exception){}
             return Respond::SQE();
         }
 
@@ -151,23 +119,20 @@
             return true;
         }
 
-        //login
-        public function login(){
-            if(!isset($this->email) || empty($this->email)){
-                return Respond::NEE();
-            }
-    
-            if(!isset($this->password) || empty($this->password)){
+        /**
+         * needs the user id and the password
+         */
+        protected function login(){
+            if(empty($this->password)){
                 return Respond::NPE();
             }
     
             try{
-                $tableName = "user";
-                $columns = ["id", "firstname", "lastname","email", "phone","user_password", "profile_image"];
-                $values = [$this->email];
+                $columns = [User::USER_ID, "firstname", "lastname","email", "phone","user_password", "profile_image"];
+                $values = [$this->id];
                 
                 $dbManager = new DbManager();
-                $details = $dbManager->query($tableName, $columns,"email = ?", $values);
+                $details = $dbManager->query(User::USER_TABLE, $columns, User::USER_ID ." = ?", $values);
                 
                 if($details !== false){
                     $hashed_password = $details['user_password'];
@@ -176,12 +141,13 @@
                     if(!password_verify($this->password, $hashed_password)){
                         return Respond::WPE();
                     }
+
                     $this->id = $userId;
 
                     //remove the old tokens
                     $sessionToken = bin2hex(openssl_random_pseudo_bytes(255));
 
-                    if(!$dbManager->update(User::SESSION_TABLE, "session_token = ?", [$sessionToken], "userId = ?",[$this->id])
+                    if(!$dbManager->update(User::SESSION_TABLE, "session_token = ?", [$sessionToken], User::USER_FOREIGN_ID ." = ?",[$this->id])
                         ){
                         
                             return Respond::SQE();
@@ -189,6 +155,7 @@
                     }
                     //Respond
                     $Respond = json_encode([
+                        "username" => $this->username,
                         "token" => "$userId-$sessionToken",
                         "firstname" => $details["firstname"],
                         "lastname" => $details["lastname"],
@@ -200,6 +167,7 @@
 
                     return Respond::makeResponse("OK", $Respond);
                 }
+
                 return Respond::WEE();
             }
     
@@ -220,7 +188,7 @@
             }
             
             $dbManager = new DbManager();
-            if($dbManager->update(User::SESSION_TABLE, "session_token = ?", [""], "userId = ?",[$this->id])){
+            if($dbManager->update(User::SESSION_TABLE, "session_token = ?", [""], User::USER_FOREIGN_ID." = ?",[$this->id])){
                 return Respond::OK();
             }
 
@@ -230,6 +198,7 @@
         /**
          * A user forgot their password and wants a link to reset it.
          * The user email must be set.
+         * TODO
          * @return string
          */
         public function forgotPassword(){
@@ -238,7 +207,7 @@
             }
 
             $dbManager = new DbManager();
-            $userInfo = $dbManager->query("user", ["id", "firstname", "lastname"], "email = ?", [$this->email]);
+            $userInfo = $dbManager->query(User::USER_TABLE, [User::USER_ID, "firstname", "lastname"], "email = ?", [$this->email]);
 
             if(!$userInfo || count($userInfo) < 1){
                 return Respond::CPETE();
@@ -322,7 +291,7 @@
             //check if there is an email in the temporary_email table. If there is, then that is what we are confirming.
             
            
-            if($dbManager->update("user", "email_verified = ?, ev_code = 0", [1], "id = ? and ev_code = ?", [$this->id, $code]) === false){
+            if($dbManager->update(User::USER_TABLE, "email_verified = ?, ev_code = 0", [1], User::USER_ID." = ? and ev_code = ?", [$this->id, $code]) === false){
                 return Respond::SQE();
             }
 
@@ -334,7 +303,7 @@
 
             if($temporaryEmail !== false){
 
-                if($dbManager->update("user", "email = ?", [$temporaryEmail["email"]], "id = ?", [$this->id]) === false){
+                if($dbManager->update(User::USER_TABLE, "email = ?", [$temporaryEmail["email"]], User::USER_ID." = ?", [$this->id]) === false){
                     return Respond::SQE();
                 }
             }
@@ -351,7 +320,7 @@
             }
 
             $dbManager = new DbManager();
-            $temporaryPhone = $dbManager->query("temporary_phone_number", ["phone", "pv_code"], "userId = ?", [$this->id]);
+            $temporaryPhone = $dbManager->query(User::TMP_PHONE_TABLE, ["phone", "pv_code"], User::USER_ID." = ?", [$this->id]);
 
             if($temporaryPhone === false){
                 return Respond::PAVE();
@@ -361,7 +330,7 @@
                 return Respond::WCE();
             }
 
-            if($dbManager->update("user", "phone = ?", [$temporaryPhone["phone"]], "id = ?", [$this->id]) === false){
+            if($dbManager->update(User::USER_TABLE, "phone = ?", [$temporaryPhone["phone"]], User::USER_ID." = ?", [$this->id]) === false){
                 return Respond::SQE();
             }
 
@@ -369,7 +338,7 @@
                 return Respond::UEO();   
             }
             
-            $dbManager->delete("temporary_phone_number", "userId = ?", [$this->id]);
+            $dbManager->delete(User::TMP_PHONE_TABLE, User::USER_ID." = ?", [$this->id]);
             return Respond::OK();
                      
         }
@@ -383,15 +352,6 @@
 
             $dbManager = new DbManager();
             return $dbManager->update(User::USER_TABLE, "user_password = ?", [$randomPass], User::USER_ID ."= ?", [$this->id]);
-        }
-
-        /**
-         * Enable or disables an account
-         */
-        public function changeAccountStatus($status){
-            $this->accountStatus = $status;
-            $dbManager = new DbManager();
-            return $dbManager->update(User::USER_TABLE, "account_status = ?", [$this->accountStatus], User::USER_ID ." = ?", [$this->id]);
         }
 
         /**
@@ -636,6 +596,26 @@
         public function setAccountStatus($accountStatus)
         {
                         $this->accountStatus = $accountStatus;
+
+                        return $this;
+        }
+
+        /**
+         * Get the value of username
+         */ 
+        public function getUsername()
+        {
+                        return $this->username;
+        }
+
+        /**
+         * Set the value of username
+         *
+         * @return  self
+         */ 
+        public function setUsername($username)
+        {
+                        $this->username = $username;
 
                         return $this;
         }

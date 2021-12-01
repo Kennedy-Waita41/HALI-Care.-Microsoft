@@ -9,7 +9,8 @@ interface UserConstantsInterface{
           PATIENT = "patient",
           ADMIN = "admin",
           DOCTOR = "doctor",
-          MEDASSISTANT = "medical_assistant";
+          MEDASSISTANT = "medical_assistant",
+          ACCOUNT_ENABLED = "enabled";
 }
 
 ?>

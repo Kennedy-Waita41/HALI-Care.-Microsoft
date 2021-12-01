@@ -133,10 +133,10 @@ trait UserResponseTrait{
     }
 
     /**
-     * Not a Vendor Error
+     * No Username Error
      */
-    public static function NAVE(){
-        return Response::makeResponse("NAVE", "You don't have any registered business on ZiQ");
+    public static function NUE(){
+        return Response::makeResponse("NUE", "You didn't enter your username");
     }
 }
 
