@@ -1,0 +1,13 @@
+<?php 
+/**
+ * PatientConstantsInterface
+ */ 
+
+
+interface PatientConstantsInterface{
+
+
+}
+
+?>
+      

@@ -1,0 +1,13 @@
+<?php 
+/**
+ * DoctorDefaultsInterface
+ */ 
+
+
+interface DoctorDefaultsInterface{
+
+
+}
+
+?>
+      

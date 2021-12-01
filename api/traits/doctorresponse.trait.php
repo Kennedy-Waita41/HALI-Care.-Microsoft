@@ -1,0 +1,13 @@
+<?php 
+/**
+ * DoctorResponseTrait
+ */ 
+
+
+trait DoctorResponseTrait{
+
+
+}
+
+?>
+      

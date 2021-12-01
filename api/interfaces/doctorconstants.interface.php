@@ -1,0 +1,13 @@
+<?php 
+/**
+ * DoctorConstantsInterface
+ */ 
+
+
+interface DoctorConstantsInterface{
+
+
+}
+
+?>
+      

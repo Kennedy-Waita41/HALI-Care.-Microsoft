@@ -1,0 +1,13 @@
+<?php 
+/**
+ * SystemAdminResponseTrait
+ */ 
+
+
+trait SystemAdminResponseTrait{
+
+
+}
+
+?>
+      

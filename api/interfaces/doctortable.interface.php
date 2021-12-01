@@ -1,0 +1,13 @@
+<?php 
+/**
+ * DoctorTableInterface
+ */ 
+
+
+interface DoctorTableInterface{
+
+
+}
+
+?>
+      

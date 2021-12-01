@@ -1,0 +1,13 @@
+<?php 
+/**
+ * SystemAdminTableInterface
+ */ 
+
+
+interface SystemAdminTableInterface{
+
+
+}
+
+?>
+      

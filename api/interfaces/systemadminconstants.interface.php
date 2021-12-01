@@ -1,0 +1,13 @@
+<?php 
+/**
+ * SystemAdminConstantsInterface
+ */ 
+
+
+interface SystemAdminConstantsInterface{
+
+
+}
+
+?>
+      

@@ -1,0 +1,13 @@
+<?php 
+/**
+ * MedAdminConstantsInterface
+ */ 
+
+
+interface MedAdminConstantsInterface{
+
+
+}
+
+?>
+      
