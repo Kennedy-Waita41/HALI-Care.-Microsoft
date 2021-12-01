@@ -57,3 +57,9 @@ CREATE TABLE `temporary_phone_number` (
   `updated_on` datetime default current_timestamp on update current_timestamp  ,
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 );
+
+CREATE TABLE `patient`( 
+  `id` bigint unsigned not null primary key auto_increment,
+  `userId` bigint unsigned not null,
+  FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
+);
