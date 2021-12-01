@@ -88,18 +88,38 @@
                 return Respond::NPE(); //Null Password Error
             }
 
-            $dbManager = new DbManager();
             if(Utility::isPasswordStrong($this->password) !== true){
                 return Utility::isPasswordStrong($this->password); 
             }
+
+            $columnSpecs = [];
+            $values = [];
+
+            if(!empty($this->firstName)){
+                if(!Utility::checkName($this->firstName)) return Respond::UNE();
+
+                $columnSpecs[] = "firstname";
+                $values[] = $this->firstName;
+            }
+
+            if(!empty($lastName)){
+                if(!Utility::checkName($lastName)) return Respond::UNE();
+
+                $columnSpecs[] = "lastname";
+                $values[] = $lastName;
+            }
+
+            $dbManager = new DbManager();
     
             $this->password = password_hash($this->password, PASSWORD_DEFAULT);
-     
-            $column_specs = ["user_password", "profile_image"];
-            $values = [$this->password, User::DEFAULT_AVATAR];
+
+            $columnSpecs[] = "user_password";
+            $values[] = $this->password;
+            $columnSpecs[] = "profile_image";
+            $values[] = User::DEFAULT_AVATAR;
 
             try{
-                $insertId = $dbManager->insert(User::USER_TABLE, $column_specs, $values);
+                $insertId = $dbManager->insert(User::USER_TABLE, $columnSpecs, $values);
                 if($insertId != -1){
                     $this->id = $insertId;
                     return Respond::OK();

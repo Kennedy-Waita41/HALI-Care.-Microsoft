@@ -33,7 +33,7 @@
     }
 
     if(!empty($lastName) && $lastName != $user->getLastName()){
-        if(!Utility::checkName($firstName)){
+        if(!Utility::checkName($lastName)){
             exit(Respond::UNE());
         }
 
@@ -89,9 +89,9 @@
             exit(Respond::EEE());
         }
 
-        $dbManager->delete("temporary_email", "userId = ?", [$user->getId()]);
+        $dbManager->delete("temporary_email", User::USER_FOREIGN_ID." = ?", [$user->getId()]);
 
-        if($dbManager->insert("temporary_email", ["userId, email"], [$user->getId(), $email]) != -1
+        if($dbManager->insert("temporary_email", [User::USER_FOREIGN_ID.", email"], [$user->getId(), $email]) != -1
          && User::sendConfirmationEmail($user->getId(), $email, $dbManager)
          ){
             $response->addMessage("We have sent a confirmation email to $email.");

@@ -18,8 +18,25 @@ class Patient extends User implements  PatientConstantsInterface ,  PatientDefau
   /**
    * Patient
    */
-  public function __construct(){
-    #code here..
+  public function __construct($id = 0){
+    if($id < 1) return;
+
+    $this->load($id);
+  }
+
+  /**
+   * loads all the patient information
+   */
+  public function load($id){
+      if(!parent::loadUser($id)) return false;
+
+      $dbManager = new DbManager();
+      $patientInfo = $dbManager->query(Patient::PATIENT_TABLE, ["*"], User::USER_FOREIGN_ID. " = ?", [$this->id]);
+
+      if($patientInfo === false) return false;
+      $this->setPatientId($patientInfo["id"]);
+
+      return true;
   }
 
   /**
@@ -35,10 +52,31 @@ class Patient extends User implements  PatientConstantsInterface ,  PatientDefau
   }
 
   /**
-   * requirements: firstname, lastname, phone, and password
+   * requirements: firstname, lastname and password
    */
   public function register(){
+    if(empty($this->firstName)) return Respond::NFNE();
+    if(empty($this->lastName)) return Respond::NLNE();
 
+    $response = parent::register();
+    if($response != Respond::OK()) return $response;
+
+    $dbManager = new DbManager();
+    $patientId = $dbManager->insert(Patient::PATIENT_TABLE, [User::USER_FOREIGN_ID],[$this->id]);
+
+    if($patientId == -1) return Respond::SQE();
+    $this->setPatientId($patientId);
+
+    $message = [
+      "username" => Patient::genUserName($this->patientId),
+      "firstName" => $this->firstName,
+      "lastName" => $this->lastName,
+      "message" => "Successfully registered patient"
+    ];
+    return Respond::makeResponse(
+      "OK",
+      json_encode($message)
+    );
   }
 
   /**

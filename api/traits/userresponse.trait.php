@@ -31,6 +31,27 @@ trait UserResponseTrait{
     }
 
     /**
+     * No First Name Error
+     */
+    public static function NFNE(){
+        return Response::makeResponse("NFNE", "Your first name is required");
+    }
+
+    /**
+     * No Last Name Error
+     */
+    public static function NLNE(){
+        return Response::makeResponse("NLNE", "Your last name is required");
+    }
+
+    /**
+     * No Phone Number Error
+     */
+    public static function NPNE(){
+        return Response::makeResponse("NPNE", "Your phone number is required");
+    }
+
+    /**
      * Email Exist Error
      * @return string
      */
