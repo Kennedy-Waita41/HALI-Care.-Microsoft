@@ -107,10 +107,9 @@ define("HALI_CONFIG", "hali-config.json");
    */
   function makeInterface($interface){
     $api = $GLOBALS['api'];
+    $interface = preg_replace("/[iI]nterface/", "", $interface);
 
-    $interface = strtolower(preg_replace("/Interface/", "", $interface));
     $camelCaseName = ucwords($interface);
-
     $interfaceName = $camelCaseName."Interface";
 
     $interface = strtolower($interface);
@@ -143,7 +142,8 @@ define("HALI_CONFIG", "hali-config.json");
   function makeTrait($trait){
 
     $api = $GLOBALS['api'];
-    $trait = strtolower(preg_replace("/Trait/", "", $trait));
+    $trait = preg_replace("/[tT]rait/", "", $trait);
+    
     $camelCaseTraitName = ucwords($trait);
     $traitName = $camelCaseTraitName."Trait";
 
@@ -400,7 +400,7 @@ define("HALI_CONFIG", "hali-config.json");
                 $traitName = makeTrait($argv[2]);
                 
                 if($traitName === false)break;
-                $trait = strtolower(preg_replace("/Trait/", "", $traitName));
+                $trait = strtolower(preg_replace("/[tT]rait/", "", $traitName));
                 $requirement = "$trait.trait.php";
 
                 $addToClass = false;

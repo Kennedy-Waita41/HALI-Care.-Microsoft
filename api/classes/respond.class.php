@@ -6,6 +6,7 @@
 require_once(__DIR__.'/../traits/userresponse.trait.php');
 require_once(__DIR__.'/../traits/generalresponse.trait.php');
 require_once(__DIR__.'/../traits/dbmanagerresponse.trait.php');
+
 #new-requirements-insert-point
 
 class Respond{
