@@ -22,7 +22,7 @@ spl_autoload_register(function($name){
  $isLoggedIn = false;
  $userId = 0;
  $specificId = 0;
- $username = "";
+ $currentUsername = "";
  $sessionId;
  //checking if the user is logged in.
 
@@ -37,11 +37,11 @@ spl_autoload_register(function($name){
    $id = $auth[0];
    $token = $auth[1];
    $appendTo = $auth[2];
-   $username = User::generateUserName($id, $appendTo);
-   $user = UserFactory::makeUser($username);
+   $currentUsername = User::generateUserName($id, $appendTo);
+   $anyUser = UserFactory::makeUser($currentUsername);
 
    $dbManager = new DbManager();
-   $result = $dbManager->query(User::SESSION_TABLE, [User::SESSION_ID, User::USER_FOREIGN_ID], "session_token = ? and ".User::USER_FOREIGN_ID." = ?", [$token, $user->getId()]);
+   $result = $dbManager->query(User::SESSION_TABLE, [User::SESSION_ID, User::USER_FOREIGN_ID], "session_token = ? and ".User::USER_FOREIGN_ID." = ?", [$token, $anyUser->getId()]);
    
    if($result !== false){
       $userId = $result[User::USER_FOREIGN_ID];
