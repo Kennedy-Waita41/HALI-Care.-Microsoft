@@ -16,27 +16,27 @@ class Patient extends User implements  PatientConstantsInterface ,  PatientDefau
   private $patientId;
 
   /**
+   * @param int $patientId - The Patient ID from the patient table. Usually,
+   * this will be in the user name.
    * Patient
    */
-  public function __construct($id = 0){
-    if($id < 1) return;
+  public function __construct($patientId = 0){
+    if($patientId < 1) return;
 
-    $this->load($id);
+    $this->load($patientId);
   }
 
   /**
    * loads all the patient information
    */
-  public function load($id){
-      if(!parent::loadUser($id)) return false;
+  public function load($patientId){
+      $this->setPatientId($patientId);
 
       $dbManager = new DbManager();
       $patientInfo = $dbManager->query(Patient::PATIENT_TABLE, ["*"], User::USER_FOREIGN_ID. " = ?", [$this->id]);
-
       if($patientInfo === false) return false;
-      $this->setPatientId($patientInfo["id"]);
-
-      return true;
+      $this->setId($patientInfo[User::USER_FOREIGN_ID]);
+      return parent::loadUser($this->id);
   }
 
   /**
@@ -57,6 +57,8 @@ class Patient extends User implements  PatientConstantsInterface ,  PatientDefau
   public function register(){
     if(empty($this->firstName)) return Respond::NFNE();
     if(empty($this->lastName)) return Respond::NLNE();
+
+    if(!Utility::checkName($this->firstName) || !Utility::checkName($this->lastName)) return Respond::UNE();
 
     $response = parent::register();
     if($response != Respond::OK()) return $response;

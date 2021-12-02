@@ -4,6 +4,7 @@
     
     $code = isset($_POST["code"])?$_POST["code"] : null;
     
+    $user = UserFactory::makeUser()
     $user = new User();
     $user->setId($userId);
     

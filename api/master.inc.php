@@ -49,6 +49,6 @@ spl_autoload_register(function($name){
  }
 
  //we only get data in json format
- $request = json_decode(file_get_contents("php://input"));
+//  $request = json_decode(file_get_contents("php://input")); for later
 
 ?>

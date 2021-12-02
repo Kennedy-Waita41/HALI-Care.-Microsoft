@@ -173,10 +173,13 @@
                             return Respond::SQE();
                             
                     }
+
+                    //the specific ID from the patient, doctor, ..., table 
+                    $usernameId = User::getIdFromUserName($this->username);
                     //Respond
                     $Respond = json_encode([
                         "username" => $this->username,
-                        "token" => "$userId-$sessionToken",
+                        "token" => "$usernameId-$sessionToken",
                         "firstname" => $details["firstname"],
                         "lastname" => $details["lastname"],
                         "phone" => $details["phone"],
