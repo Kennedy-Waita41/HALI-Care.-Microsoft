@@ -6,11 +6,13 @@
 require_once(__DIR__.'/../interfaces/medassistantconstants.interface.php');
 require_once(__DIR__.'/../interfaces/medassistantdefaults.interface.php');
 require_once(__DIR__.'/../interfaces/medassistanttable.interface.php');
+require_once(__DIR__.'/../traits/approvable.trait.php');
 #new-requirements-insert-point
 
 
 class MedAssistant extends User implements  MedAssistantConstantsInterface ,  MedAssistantDefaultsInterface ,  MedAssistantTableInterface {
  
+ use ApprovableTrait;
 #new-traits-insert-point
 
   private $mAId,
@@ -90,6 +92,12 @@ class MedAssistant extends User implements  MedAssistantConstantsInterface ,  Me
     return User::generateUserName($mAId, MedAssistant::MA);
   }
 
+  /**
+   * Approves a medical assistant account (change status to )
+   */
+  public function approve(){
+    return (new DbManager())->update(MedAssistant::MA_TABLE, "account_status = ?", [MedAssistant::ACCOUNT_APPROVED], MedAssistant::MA_ID." = ?", [$this->mAId]);
+  }
 
   /**
    * Get the value of mAId

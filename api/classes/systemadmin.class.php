@@ -17,9 +17,17 @@ class SystemAdmin extends User implements  SystemAdminConstantsInterface ,  Syst
    * SystemAdmin
    */
   public function __construct(){
-    #code here..
+    
   }
 
+  /**
+   * Approves a Doctor, MedAssistant or Doctor
+   * @param MedAdmin|MedAssistant|Doctor $user
+   */
+  public function approve($user){
+    if(!$user->isApprovable()) return false;
+    return $user->approve();
+  }
 }
 
 ?>

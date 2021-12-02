@@ -6,11 +6,13 @@
 require_once(__DIR__.'/../interfaces/doctorconstants.interface.php');
 require_once(__DIR__.'/../interfaces/doctordefaults.interface.php');
 require_once(__DIR__.'/../interfaces/doctortable.interface.php');
+require_once(__DIR__.'/../traits/approvable.trait.php');
 #new-requirements-insert-point
 
 
 class Doctor extends User implements  DoctorConstantsInterface ,  DoctorDefaultsInterface ,  DoctorTableInterface {
  
+use ApprovableTrait;
 #new-traits-insert-point
 
   /**
@@ -43,6 +45,14 @@ class Doctor extends User implements  DoctorConstantsInterface ,  DoctorDefaults
       $this->setId($doctorInfo[User::USER_FOREIGN_ID]);
       return parent::loadUser($this->id);
   }
+
+  /**
+   * called to approve a doctor. It should only be called by the Admins
+   */
+  public function approve(){
+    return (new DbManager())->update(Doctor::DOC_TABLE, "account_status = ?", [Doctor::ACCOUNT_APPROVED], Doctor::DOC_ID." = ?", [$this->doctorId]);
+  }
+
 
   /**
    * Get the value of doctorId

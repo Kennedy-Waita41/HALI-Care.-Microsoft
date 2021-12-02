@@ -6,11 +6,13 @@
 require_once(__DIR__.'/../interfaces/medadminconstants.interface.php');
 require_once(__DIR__.'/../interfaces/medadmindefaults.interface.php');
 require_once(__DIR__.'/../interfaces/medadmintable.interface.php');
+require_once(__DIR__.'/../traits/approvable.trait.php');
 #new-requirements-insert-point
 
 
 class MedAdmin extends User implements  MedAdminConstantsInterface ,  MedAdminDefaultsInterface ,  MedAdminTableInterface {
  
+use ApprovableTrait;
 #new-traits-insert-point
 
   /**
@@ -42,6 +44,13 @@ class MedAdmin extends User implements  MedAdminConstantsInterface ,  MedAdminDe
       if($medAdminInfo === false) return false;
       $this->setId($medAdminInfo[User::USER_FOREIGN_ID]);
       return parent::loadUser($this->id);
+  }
+
+  /**
+   * called to approve a doctor. It should only be called by the Admins
+   */
+  public function approve(){
+    return (new DbManager())->update(MedAdmin::MED_ADMIN_TABLE, "account_status = ?", [MedAdmin::ACCOUNT_APPROVED], MedAdmin::MED_ADMIN_ID." = ?", [$this->medAdminId]);
   }
 
   /**
