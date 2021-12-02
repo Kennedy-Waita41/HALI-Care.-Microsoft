@@ -37,14 +37,18 @@ spl_autoload_register(function($name){
    $token = $auth[1];
 
    $dbManager = new DbManager();
-   $result = $dbManager->query("session", ["session_id", "userId"], "session_token = ? and userId = ?", [$token, $id]);
+   $result = $dbManager->query(User::SESSION_TABLE, [User::SESSION_ID, User::USER_FOREIGN_ID], "session_token = ? and ".User::USER_FOREIGN_ID." = ?", [$token, $id]);
    
    if($result !== false){
-      $userId = $result["userId"];
-      $sessionId = $result["session_id"];
+      $userId = $result[User::USER_FOREIGN_ID];
+      $sessionId = $result[User::SESSION_ID];
       $isLoggedIn = true;
    }
 
    $dbManager->close();
  }
+
+ //we only get data in json format
+ $request = json_decode(file_get_contents("php://input"));
+
 ?>
