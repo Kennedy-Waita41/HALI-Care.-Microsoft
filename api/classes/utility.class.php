@@ -245,6 +245,14 @@
             $output = array_diff($query, Constants::STOPWORDS);
             return $output;
         }
+
+        /**
+         * Cleans a string input
+         */
+        public static function sanitizeString($string){
+            return filter_var($string, FILTER_SANITIZE_STRING);
+        }
+
     }
 
 ?>

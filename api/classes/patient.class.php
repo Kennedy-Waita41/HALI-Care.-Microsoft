@@ -85,8 +85,8 @@ class Patient extends User implements  PatientConstantsInterface ,  PatientDefau
   /**
    * @param int $id - patient ID
    */
-  public static function genUserName($id){
-    return User::generateUserName($id, Patient::PAT);
+  public static function genUserName($patientId){
+    return User::generateUserName($patientId, Patient::PAT);
   }
 
   /**

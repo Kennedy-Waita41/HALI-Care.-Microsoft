@@ -38,7 +38,7 @@ class MedAdmin extends User implements  MedAdminConstantsInterface ,  MedAdminDe
       $this->setMedAdminId($medAdminId);
 
       $dbManager = new DbManager();
-      $medAdminInfo = $dbManager->query(MedAdmin::MED_ADMIN_TABLE, ["*"], User::USER_FOREIGN_ID. " = ?", [$this->id]);
+      $medAdminInfo = $dbManager->query(MedAdmin::MED_ADMIN_TABLE, ["*"], MedAdmin::MED_ADMIN_ID. " = ?", [$this->medAdminId]);
       if($medAdminInfo === false) return false;
       $this->setId($medAdminInfo[User::USER_FOREIGN_ID]);
       return parent::loadUser($this->id);

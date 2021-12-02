@@ -30,11 +30,66 @@ class MedAssistant extends User implements  MedAssistantConstantsInterface ,  Me
       $this->setMAId($mAId);
 
       $dbManager = new DbManager();
-      $patientInfo = $dbManager->query(MedAssistant::MA_TABLE, ["*"], User::USER_FOREIGN_ID. " = ?", [$this->id]);
-      if($patientInfo === false) return false;
-      $this->setId($patientInfo[User::USER_FOREIGN_ID]);
+      $mAInfo = $dbManager->query(MedAssistant::MA_TABLE, ["*"], MedAssistant::MA_ID. " = ?", [$this->mAId]);
+      if($mAInfo === false) return false;
+      $this->setId($mAInfo[User::USER_FOREIGN_ID]);
       return parent::loadUser($this->id);
   }
+
+  /**
+   * requires the patient username and password
+   */
+  public function login(){
+    if(!isset($this->username)){
+      return Respond::NUE();
+    }
+    $this->setMAId(User::getIdFromUserName($this->username));
+    $this->setId($this->getUserId($this->mAId, MedAssistant::MA_ID, MedAssistant::MA_TABLE));
+    return parent::login();
+  }
+
+  /**
+   * requirements: firstname, lastname, hospital and password
+   */
+  public function register(){
+    if(empty($this->firstName)) return Respond::NFNE();
+    if(empty($this->lastName)) return Respond::NLNE();
+    if(empty($this->hospital)) return Respond::NHE();
+
+    if(!Utility::checkName($this->firstName) || !Utility::checkName($this->lastName)) return Respond::UNE();
+
+    if(!Utility::checkName($this->hospital)) return Respond::UQHNE();
+
+    $response = parent::register();
+    if($response != Respond::OK()) return $response;
+
+    $dbManager = new DbManager();
+    $mAId = $dbManager->insert(MedAssistant::MA_TABLE, [User::USER_FOREIGN_ID, "hospital"],[$this->id, $this->hospital]);
+
+    if($mAId == -1) return Respond::SQE();
+    $this->setMAId($mAId);
+
+    $message = [
+      "username" => MedAssistant::genUserName($this->mAId),
+      "hospital" => $this->hospital,
+      "firstName" => $this->firstName,
+      "lastName" => $this->lastName,
+      "message" => "Successfully registered Medical Assistant"
+    ];
+
+    return Respond::makeResponse(
+      "OK",
+      json_encode($message)
+    );
+  }
+
+  /**
+   * @param int $mAId - Medical Assistant ID
+   */
+  public static function genUserName($mAId){
+    return User::generateUserName($mAId, MedAssistant::MA);
+  }
+
 
   /**
    * Get the value of mAId

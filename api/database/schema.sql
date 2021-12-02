@@ -69,7 +69,7 @@ CREATE TABLE `medical_assistant`(
   `id` bigint unsigned not null primary key auto_increment,
   `userId` bigint unsigned not null,
   `hospital` varchar(255) not null,
-  `account_status` ENUM(0, 1, 2) NOT NULL default 0,
+  `account_status` tinyint NOT NULL default 0,
   `created_on` datetime default current_timestamp,
   `updated_on` datetime default current_timestamp on update current_timestamp ,
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
@@ -79,7 +79,7 @@ CREATE TABLE `doctor`(
   `id` bigint unsigned not null primary key auto_increment,
   `userId` bigint unsigned not null,
   `hospital` varchar(255) not null,
-  `account_status` ENUM(0, 1, 2) NOT NULL default 0,
+  `account_status` tinyint NOT NULL default 0,
   `created_on` datetime default current_timestamp,
   `updated_on` datetime default current_timestamp on update current_timestamp ,
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
@@ -89,7 +89,7 @@ CREATE TABLE `medical_admin`(
   `id` bigint unsigned not null primary key auto_increment,
   `userId` bigint unsigned not null,
   `hospital` varchar(255) not null,
-  `account_status` ENUM(0, 1, 2) NOT NULL default 0,
+  `account_status` tinyint NOT NULL default 0,
   `created_on` datetime default current_timestamp,
   `updated_on` datetime default current_timestamp on update current_timestamp ,
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade

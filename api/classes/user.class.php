@@ -16,8 +16,6 @@
                 $password,
                 $id,
                 $emailVerified,
-                $type,
-                $accountStatus,
                 $evCode,
                 $profileImage,
                 $sessionId;
@@ -47,10 +45,8 @@
                 $this->setPassword($userInfo['user_password']);
                 $this->setPhone($userInfo['phone']);
                 $this->setEmailVerified($userInfo['email_verified']);
-                $this->setType($userInfo["user_type"]);
                 $this->setProfileImage($userInfo["profile_image"]);
                 $this->setEvCode($userInfo["ev_code"]);
-                $this->setAccountStatus($userInfo["account_status"]);
                 return true;
             }
             return false;
@@ -524,26 +520,6 @@
         }
 
         /**
-         * Get the value of type
-         */ 
-        public function getType()
-        {
-                        return $this->type;
-        }
-
-        /**
-         * Set the value of type
-         *
-         * @return  self
-         */ 
-        public function setType($type)
-        {
-                        $this->type = $type;
-
-                        return $this;
-        }
-
-        /**
          * Get the value of profileImage
          */ 
         public function getProfileImage()
@@ -599,26 +575,6 @@
         public function setSessionId($sessionId)
         {
                         $this->sessionId = $sessionId;
-
-                        return $this;
-        }
-
-        /**
-         * Get the value of accountStatus
-         */ 
-        public function getAccountStatus()
-        {
-                        return $this->accountStatus;
-        }
-
-        /**
-         * Set the value of accountStatus
-         *
-         * @return  self
-         */ 
-        public function setAccountStatus($accountStatus)
-        {
-                        $this->accountStatus = $accountStatus;
 
                         return $this;
         }
