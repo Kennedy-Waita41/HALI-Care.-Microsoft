@@ -10,6 +10,7 @@ Every request made to this api receives a response in the form
  `{status: OK, message : value}`  
  `status`: the Status of the response. It will be `OK` when successful and something else otherwise.  
  `message`: the human understandable error message if `status` is not `OK` and string or object value when `status` is `OK`.
+![image](https://user-images.githubusercontent.com/56189552/144455683-7d0727ce-2a4c-4626-a111-45bf5c2d771e.png)
 
 ## Hali Command line tool
  The hali command line tool helps in creating different files following the convention and the directory structure of the Hali app.
