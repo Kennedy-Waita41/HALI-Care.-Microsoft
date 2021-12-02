@@ -5,12 +5,13 @@
     exit(Respond::ALIE());
  }
 
- $email = isset($_POST['email'])?$_POST['email']:null;
+ $username = isset($_POST['username'])?$_POST['username']:null;
  $password = isset($_POST['password'])? $_POST['password']:null;
 
- $user = new User();
- $user->setEmail($email);
+ $user = UserFactory::makeUser($username);
+ $user->setUsername($username);
  $user->setPassword($password);
+ 
  exit($user->login());
 
 ?>

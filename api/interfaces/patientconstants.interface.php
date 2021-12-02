@@ -5,7 +5,7 @@
 
 
 interface PatientConstantsInterface{
-    const PATIENT = "patient",
+    const 
           PAT = "PAT";
 
 }
