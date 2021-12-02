@@ -100,6 +100,20 @@ class MedAssistant extends User implements  MedAssistantConstantsInterface ,  Me
   }
 
   /**
+   * change the account status to pending
+   */
+  public function pend(){
+    return (new DbManager())->update(MedAssistant::MA_TABLE, "account_status = ?", [MedAssistant::ACCOUNT_PENDING], MedAssistant::MA_ID." = ?", [$this->mAId]);
+  }
+
+  /**
+   * change the account status to pending
+   */
+  public function decline(){
+    return (new DbManager())->update(MedAssistant::MA_TABLE, "account_status = ?", [MedAssistant::ACCOUNT_DECLINED], MedAssistant::MA_ID." = ?", [$this->mAId]);
+  }
+
+  /**
    * Get the value of mAId
    */ 
   public function getMAId()

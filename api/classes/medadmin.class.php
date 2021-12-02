@@ -54,6 +54,20 @@ use ApprovableTrait;
   }
 
   /**
+   * changes the account status to pending
+   */
+  public function pend(){
+    return (new DbManager())->update(MedAdmin::MED_ADMIN_TABLE, "account_status = ?", [MedAdmin::ACCOUNT_PENDING], MedAdmin::MED_ADMIN_ID." = ?", [$this->medAdminId]);
+  }
+
+  /**
+   * changes the account status to declined
+   */
+  public function decline(){
+    return (new DbManager())->update(MedAdmin::MED_ADMIN_TABLE, "account_status = ?", [MedAdmin::ACCOUNT_DECLINED], MedAdmin::MED_ADMIN_ID." = ?", [$this->medAdminId]);
+  }
+
+  /**
    * Get the value of medAdminId
    */ 
   public function getMedAdminId()

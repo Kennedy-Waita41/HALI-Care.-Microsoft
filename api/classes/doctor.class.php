@@ -53,6 +53,19 @@ use ApprovableTrait;
     return (new DbManager())->update(Doctor::DOC_TABLE, "account_status = ?", [Doctor::ACCOUNT_APPROVED], Doctor::DOC_ID." = ?", [$this->doctorId]);
   }
 
+  /**
+   * change the account status to pending.
+   */
+  public function pend(){
+    return (new DbManager())->update(Doctor::DOC_TABLE, "account_status = ?", [Doctor::ACCOUNT_PENDING], Doctor::DOC_ID." = ?", [$this->doctorId]);
+  }
+
+  /**
+   * change the account status to declined.
+   */
+  public function decline(){
+    return (new DbManager())->update(Doctor::DOC_TABLE, "account_status = ?", [Doctor::ACCOUNT_DECLINED], Doctor::DOC_ID." = ?", [$this->doctorId]);
+  }
 
   /**
    * Get the value of doctorId

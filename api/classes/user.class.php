@@ -172,10 +172,11 @@
 
                     //the specific ID from the patient, doctor, ..., table 
                     $usernameId = User::getIdFromUserName($this->username);
+                    $appendTo = preg_split("/-/", $this->username)[0];
                     //Respond
                     $Respond = json_encode([
                         "username" => $this->username,
-                        "token" => "$usernameId-$sessionToken",
+                        "token" => "$usernameId-$sessionToken-$appendTo",
                         "firstname" => $details["firstname"],
                         "lastname" => $details["lastname"],
                         "phone" => $details["phone"],
