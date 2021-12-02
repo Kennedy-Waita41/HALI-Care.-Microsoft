@@ -1,6 +1,11 @@
-# patient logic folder
-You will see the list of scripts, what they do, and what data they expect
+# patient 
+This folder contains --FOLDER-- logic or procedures files, their expected input **parameters**, **what they do**, and **output or response**.
+  
 # add.php
-**Function**: signs up a new patient  
-**input**: firstname, lastname, password in an http post request.
-**response**: specified in api/readme.md.  
+|   |   |
+|---|---|
+| **DESCRIPTION:**  | signs up a new patient  |
+| **EXPECTS:**  |  **firstname: string, lastname: string, password: string** in HTTP POST request |
+| **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |    
+  
+  
