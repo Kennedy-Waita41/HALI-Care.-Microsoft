@@ -1,5 +1,5 @@
 # patient 
-This folder contains --FOLDER-- logic or procedures files, their expected input **parameters**, **what they do**, and **output or response**.
+This folder contains patient logic or procedures files, their expected input **parameters**, **what they do**, and **output or response**.
   
 # add.php
 |   |   |
