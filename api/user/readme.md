@@ -1,2 +1,5 @@
-# User
-This folder contains logic files that are specific to the user attributes.
+# user  
+This folder contains user logic or procedures files, their expected input **parameters**, **what they do**, and **output or response**.
+  
+ 
+    
