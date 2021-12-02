@@ -13,7 +13,8 @@ class Patient extends User implements  PatientConstantsInterface ,  PatientDefau
  
 #new-traits-insert-point
 
-  private $patientId;
+  private $patientId,
+          $dob;
 
   /**
    * @param int $patientId - The Patient ID from the patient table. Usually,
@@ -33,7 +34,7 @@ class Patient extends User implements  PatientConstantsInterface ,  PatientDefau
       $this->setPatientId($patientId);
 
       $dbManager = new DbManager();
-      $patientInfo = $dbManager->query(Patient::PATIENT_TABLE, ["*"], User::USER_FOREIGN_ID. " = ?", [$this->id]);
+      $patientInfo = $dbManager->query(Patient::PATIENT_TABLE, ["*"], Patient::PATIENT_ID. " = ?", [$this->patientId]);
       if($patientInfo === false) return false;
       $this->setId($patientInfo[User::USER_FOREIGN_ID]);
       return parent::loadUser($this->id);
@@ -106,6 +107,26 @@ class Patient extends User implements  PatientConstantsInterface ,  PatientDefau
     $this->patientId = $patientId;
 
     return $this;
+  }
+
+  /**
+   * Get the value of dob
+   */ 
+  public function getDob()
+  {
+            return $this->dob;
+  }
+
+  /**
+   * Set the value of dob
+   *
+   * @return  self
+   */ 
+  public function setDob($dob)
+  {
+            $this->dob = $dob;
+
+            return $this;
   }
 }
 

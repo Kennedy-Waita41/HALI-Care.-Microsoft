@@ -5,6 +5,12 @@ This is the root directory of the Hali Care API
 1. **master.inc.php**: 
 2. **auth.inc.php**
 
+## Response Format
+Every request made to this api receives a response in the form  
+ `{status: OK, message : value}`  
+ `status`: the Status of the response. It will be `OK` when successful and something else otherwise.  
+ `message`: the human understandable error message if `status` is not `OK` and string or object value when `status` is `OK`.
+
 ## Hali Command line tool
  The hali command line tool helps in creating different files following the convention and the directory structure of the Hali app.
 

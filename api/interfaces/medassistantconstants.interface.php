@@ -6,7 +6,6 @@
 
 interface MedAssistantConstantsInterface{
     const MA = "MA";
-
 }
 
 ?>
