@@ -5,7 +5,7 @@
 
 
 interface DoctorConstantsInterface{
-
+    const DOC = "DOC";
 
 }
 

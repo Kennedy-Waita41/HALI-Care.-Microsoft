@@ -10,6 +10,8 @@ interface UserConstantsInterface{
           ADMIN = "admin",
           DOCTOR = "doctor",
           MEDASSISTANT = "medical_assistant",
+          MED_ADMIN = "medical_admin",
+          SYSTEM_ADMIN = "system_admin",
           ACCOUNT_ENABLED = "enabled";
 }
 

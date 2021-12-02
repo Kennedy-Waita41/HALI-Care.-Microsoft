@@ -11,6 +11,7 @@ require_once(__DIR__.'/../traits/patientresponse.trait.php');
 require_once(__DIR__.'/../traits/doctorresponse.trait.php');
 require_once(__DIR__.'/../traits/medadminresponse.trait.php');
 require_once(__DIR__.'/../traits/systemadminresponse.trait.php');
+require_once(__DIR__.'/../traits/medassistantresponse.trait.php');
 #new-requirements-insert-point
 
 class Respond{
@@ -21,6 +22,7 @@ use PatientResponseTrait;
 use DoctorResponseTrait;
 use MedAdminResponseTrait;
 use SystemAdminResponseTrait;
+use MedAssistantResponseTrait;
 #new-traits-insert-point
 
     private $message, $status, $format;

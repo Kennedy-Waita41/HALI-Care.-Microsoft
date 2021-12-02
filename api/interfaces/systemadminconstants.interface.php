@@ -5,7 +5,7 @@
 
 
 interface SystemAdminConstantsInterface{
-
+    const SA = "SA";
 
 }
 

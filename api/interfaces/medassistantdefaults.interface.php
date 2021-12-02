@@ -1,0 +1,13 @@
+<?php 
+/**
+ * MedAssistantDefaultsInterface
+ */ 
+
+
+interface MedAssistantDefaultsInterface{
+
+
+}
+
+?>
+      

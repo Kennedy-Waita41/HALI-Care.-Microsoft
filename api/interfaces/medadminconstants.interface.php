@@ -5,7 +5,7 @@
 
 
 interface MedAdminConstantsInterface{
-
+    const MDA = "MDA";
 
 }
 

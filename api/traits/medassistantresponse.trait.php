@@ -1,0 +1,13 @@
+<?php 
+/**
+ * MedAssistantResponseTrait
+ */ 
+
+
+trait MedAssistantResponseTrait{
+
+
+}
+
+?>
+      
