@@ -56,7 +56,7 @@
          * Changes the user password when the user is logged in
          * @param string $oldPassword
          */
-        protected function changePassword($oldPassword, $newPassword){
+        public function changePassword($oldPassword, $newPassword){
 
             if(password_verify($oldPassword, $this->password)){
                  if(Utility::isPasswordStrong($newPassword) !== true){
@@ -302,6 +302,9 @@
         }
 
 
+        /**
+         * Confirms the email that the code is assigned to.
+         */
         public function confirmEmail($code){
             if(empty($this->id) || $this->id == null){
                 return Respond::NIE();

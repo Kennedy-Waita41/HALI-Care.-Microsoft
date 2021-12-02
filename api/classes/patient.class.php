@@ -90,6 +90,17 @@ class Patient extends User implements  PatientConstantsInterface ,  PatientDefau
   }
 
   /**
+   * checks if a patient has all the necessary information to request a consultation
+   */
+  public function canRequest(){
+    if(empty($this->firstName) || empty($this->lastName) || empty($this->phone)) return false;
+    
+    return true;
+  }
+
+  
+
+  /**
    * Get the value of patientId
    */ 
   public function getPatientId()
