@@ -1,9 +1,10 @@
 You haven't written any command or you have typed -help
 
 The commands are:
-    -> make:logic [camel case fileName] [-d directoryName] [-na] - makes a logic file. 
+    -> make:logic [camel case fileName] [-d directoryName] [-na] [-f description of the file] - makes a logic file. 
         The [-na] is optional and tells hali not to include authentication (na) file (auth.inc.php) at the top of the created logic script.
         The [-d directoryName] tells hali to put the logic file in directoryName directory. If the directory doesn't exist, it is created and the default master.inc.php and auth.inc.php files are added to it.
+        The [-f description of the file ] tells hali to add the description of the file to the readme.md and also add it to the beginning of the script.
 
     -> make:class [camel case classname] [options] - tells hali to make a class in the classes folder with the specified class name.
             [options]: 

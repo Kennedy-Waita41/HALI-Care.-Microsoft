@@ -1,0 +1,8 @@
+# --FILE--
+|   |   |
+|---|---|
+| **DESCRIPTION:**  | --DESCRIPTION--   |
+| **EXPECTS:**  |  **parameter: type** in HTTP POST request |
+| **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
+  
+    

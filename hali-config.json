@@ -9,7 +9,9 @@
             "traits": "api/traits",
             "database": "api/database",
             "storage": "api/storage",
-            "includes": "api/includes"           
+            "includes": "api/includes"  ,
+            "logicReadmeSkel": "api/logicReadme.skel",
+            "logicAppendToReadMeSkel": "api/logicReadmeAppend.skel"         
         },
     "consolePaths":
         {

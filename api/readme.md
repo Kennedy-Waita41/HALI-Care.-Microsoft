@@ -36,9 +36,10 @@ This command does what the above command do but with additional boilerplate code
     - ***`--md`***: tells hali to create a directory in the logic folder with the name of the class.
     **note: These options can be written in any order**
 
-4.  ***`make:logic [camel case fileName] [-d directoryName] [-na]`***: - makes a logic file. 
+4.  ***`make:logic [camel case fileName] [-d directoryName] [-na] [-f description of the file]`***: - makes a logic file. 
         The `-na` is optional and tells hali not to include authentication (na) file (auth.inc.php) at the top of the created logic script.
-        The `-d directoryName` tells hali to put the logic file in directoryName directory. If the directory doesn't exist, it is created and the default master.inc.php and auth.inc.php files are added to it.
+        The `-d directoryName` tells hali to put the logic file in directoryName directory. If the directory doesn't exist, it is created and the default master.inc.php and auth.inc.php files are added to it.  
+        The `-f description ...` is optional and tells hali to write the description of this logic file in the directory's readme.md and also in the file.  
 
 5. ***`php hali make:include filename`*** : makes an include file in the `includes` folder. The include file has `.inc.php` as its extenstion.
 

@@ -178,10 +178,12 @@ define("HALI_CONFIG", "hali-config.json");
    */
 
    function addMasterAndAuth($folder){
+    $folder = strtolower($folder);
     $api = $GLOBALS['api'];
     echo shell_exec("mkdir $api->root\\". $folder);
     echo shell_exec("touch $api->root/".$folder."/master.inc.php");
     echo shell_exec("touch $api->root/".$folder."/auth.inc.php");
+    echo shell_exec("touch $api->root/".$folder."/readme.md");
 
     $masterInc = fopen("$api->root/".$folder."/master.inc.php", "w");
     fwrite($masterInc, "<?php\nrequire(__DIR__.'/../master.inc.php');\n?>");
@@ -190,9 +192,15 @@ define("HALI_CONFIG", "hali-config.json");
     $authInc = fopen("$api->root/".$folder."/auth.inc.php", "w");
     fwrite($authInc, "<?php\nrequire(__DIR__.'/../auth.inc.php');\n?>");
     fclose($authInc);
+    $readmeContents = file_get_contents($api->logicReadmeSkel);
+    $readmeContents = preg_replace("/--FOLDER--/",$folder, $readmeContents);
+
+    $readMeFile = fopen("$api->root/".$folder."/readme.md", "w");
+    fwrite($readMeFile, $readmeContents);
+    fclose($readMeFile);
    }
 
-   function makeLogic($filename, $folder, $auth = true){
+   function makeLogic($filename, $folder, $auth = true, $function = "Does what the name suggests"){
      $api = $GLOBALS['api'];
      $filename = strtolower($filename);
      echo $folder;
@@ -217,10 +225,18 @@ define("HALI_CONFIG", "hali-config.json");
 
         $auth = ($auth !== false)? "require('./auth.inc.php');":"";
         $master = "require('./master.inc.php');";
-        $content = "<?php\n$master\n$auth\n\n/**\n * what does this logic script do?\n */\n\n?>";
+        $content = "<?php\n$master\n$auth\n\n/**\n * Description: $function \n */\n\n?>";
         fwrite($file, $content);
         fclose($file);
         echo "\n\nSuccessfully created $filename logic file in the logic folder\n\n";
+
+        $readmeContents = file_get_contents($api->logicAppendToReadMeSkel);
+        $readmeContents = preg_replace("/--FILE--/", "$filename.php", $readmeContents);
+        $readmeContents = preg_replace("/--DESCRIPTION--/", $function, $readmeContents);
+
+        $readMeFile = fopen("$api->root/".$folder."/readme.md", "a");
+        fwrite($readMeFile, $readmeContents);
+        fclose($readMeFile);
       }
      
    }
@@ -270,11 +286,20 @@ define("HALI_CONFIG", "hali-config.json");
               {
                 $folder = "";
                 $directoryList = false;
+                $isDescription = false;
+                $description = [];
                 $auth = true;
 
                 for($i = 3; $i < $argc; $i++){
                   if($argv[$i] == "-d" && $folder == ""){
                     $directoryList = true;
+                    $isDescription = !$directoryList;
+                    continue;
+                  }
+
+                  if($argv[$i] == "-f"){
+                    $isDescription = true;
+                    $directoryList = !$isDescription;
                     continue;
                   }
 
@@ -286,12 +311,20 @@ define("HALI_CONFIG", "hali-config.json");
 
                   if($argv[$i] == "-na"){
                     $auth = false;
+                    $isDescription = false;
                     continue;
                   }
 
+                  if($isDescription){
+                    $description[] = $argv[$i];
+                    continue;
+                  }
+
+
                 }
-                
-                makeLogic($argv[2], $folder, $auth);
+                $description = join(" ", $description);
+                $description = ($description == "")? "Does what the name suggests": $description;
+                makeLogic($argv[2], $folder, $auth, $description);
                 break;
               }
             case "class":
