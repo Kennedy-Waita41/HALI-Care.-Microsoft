@@ -3,3 +3,11 @@ This folder contains doctor logic or procedures files, their expected input **pa
   
  
     
+# add.php
+|   |   |
+|---|---|
+| **DESCRIPTION:**  | To signup doctor   |
+| **EXPECTS:**  |  **parameter: type** in HTTP POST request |
+| **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
+  
+    
