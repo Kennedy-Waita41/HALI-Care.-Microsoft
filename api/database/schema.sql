@@ -100,7 +100,6 @@ CREATE TABLE `symptoms`(
   `consultationId` BIGINT NOT NULL PRIMARY KEY,
   `symptoms` VARCHAR(2000) NOT NULL,
   `created_on` datetime default current_timestamp,
-  `updated_on` datetime default current_timestamp on update current_timestamp ,
   FOREIGN KEY (`consultationId`) REFERENCES `consultation`(`id`) on delete cascade
 );
 
