@@ -18,7 +18,7 @@ class Symptoms{
    * Symptoms
    */
   public function __construct($consultationId = 0){
-    if($consultationId < 0){
+    if($consultationId < 1){
       return;
     }
 
@@ -40,6 +40,8 @@ class Symptoms{
 
     $this->setSymptoms($symInfo["symptoms"]);
     $this->setDateAdded($symInfo["created_on"]);
+
+    return true;
   }
 
   /**
