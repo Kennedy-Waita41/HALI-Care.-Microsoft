@@ -94,3 +94,23 @@ CREATE TABLE `medical_admin`(
   `updated_on` datetime default current_timestamp on update current_timestamp ,
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 );
+
+
+CREATE TABLE `patient_symptoms`(
+  `consultationId` BIGINT NOT NULL PRIMARY KEY,
+  `symptoms` VARCHAR(2000) NOT NULL,
+  `created_on` datetime default current_timestamp,
+  `updated_on` datetime default current_timestamp on update current_timestamp ,
+  FOREIGN KEY (`consultationId`) REFERENCES `consultation`(`id`) on delete cascade
+);
+
+CREATE TABLE `patient_vital`(
+  `consultationId` BIGINT NOT NULL PRIMARY KEY,
+  `body_temp` FLOAT,
+  `pulse_rate` FLOAT,
+  `respiration_rate` FLOAT,
+  `blood_pressure` FLOAT,
+  `created_on` datetime default current_timestamp,
+  `updated_on` datetime default current_timestamp on update current_timestamp ,
+  FOREIGN KEY (`consultationId`) REFERENCES `consultation`(`id`) on delete cascade
+);
