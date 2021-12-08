@@ -1,0 +1,13 @@
+<?php 
+/**
+ * ConsultationDefaultsInterface
+ */ 
+
+
+interface ConsultationDefaultsInterface{
+
+
+}
+
+?>
+      

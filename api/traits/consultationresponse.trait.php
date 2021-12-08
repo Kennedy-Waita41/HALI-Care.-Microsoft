@@ -1,0 +1,13 @@
+<?php 
+/**
+ * ConsultationResponseTrait
+ */ 
+
+
+trait ConsultationResponseTrait{
+
+
+}
+
+?>
+      
