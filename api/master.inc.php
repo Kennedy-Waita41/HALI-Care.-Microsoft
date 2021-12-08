@@ -30,8 +30,8 @@ spl_autoload_register(function($name){
    $auth = $_SERVER["HTTP_AUTH"];
    $auth = preg_split("/-/", $auth);
 
-   if(count($auth) < 2){
-      $auth = [0, ""];
+   if(count($auth) < 3){
+      $auth = [0, "", "PAT"];
    }
 
    $id = $auth[0];
