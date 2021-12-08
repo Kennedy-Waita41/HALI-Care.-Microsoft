@@ -96,7 +96,7 @@ CREATE TABLE `medical_admin`(
 );
 
 
-CREATE TABLE `patient_symptoms`(
+CREATE TABLE `symptoms`(
   `consultationId` BIGINT NOT NULL PRIMARY KEY,
   `symptoms` VARCHAR(2000) NOT NULL,
   `created_on` datetime default current_timestamp,
@@ -104,7 +104,7 @@ CREATE TABLE `patient_symptoms`(
   FOREIGN KEY (`consultationId`) REFERENCES `consultation`(`id`) on delete cascade
 );
 
-CREATE TABLE `patient_vital`(
+CREATE TABLE `vital_signs`(
   `consultationId` BIGINT NOT NULL PRIMARY KEY,
   `body_temp` FLOAT,
   `pulse_rate` FLOAT,
