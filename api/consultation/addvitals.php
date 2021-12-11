@@ -22,7 +22,7 @@ require('./auth.inc.php');
      exit(Respond::NPCIE());
  }
 
- if($patient->getId() !== User::getIdFromUserName($patUserName)){
+ if($patient->getPatientId() !== User::getIdFromUserName($patUserName)){
     exit(Respond::CNFPE());
  }
 

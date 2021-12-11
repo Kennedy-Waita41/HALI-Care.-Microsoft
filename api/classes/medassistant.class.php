@@ -125,7 +125,7 @@ class MedAssistant extends User implements  MedAssistantConstantsInterface ,  Me
 
     $doctor = new Doctor($doctorId);
 
-    $resp = $doctor->assignToConsultation($consultation, $this->id);
+    $resp = $doctor->assignToConsultation($consultation, $this->mAId);
 
     if($resp == Respond::NDCIE()){
       return Respond::DCINSE();

@@ -135,7 +135,7 @@ use ApprovableTrait;
     }
     $prevStatus = $consultation->getConsultationStatus();
 
-    if(!$consultation->assign($this->id, $medId)){
+    if(!$consultation->assign($this->doctorId, $medId)){
       $consultation->changeStatus($prevStatus);
       return Respond::SQE();
     }

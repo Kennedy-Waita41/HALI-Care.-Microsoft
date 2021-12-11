@@ -6,7 +6,7 @@ require(__DIR__.'/../patient/auth.inc.php');
  */
 
  $consultation = new Consultation();
- $consultation->setPatientId($userId);
+ $consultation->setPatientId($globalPatient->getPatientId());
  
  exit($consultation->add());
 ?>

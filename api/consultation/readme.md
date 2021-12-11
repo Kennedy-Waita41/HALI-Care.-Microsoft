@@ -33,3 +33,11 @@ This folder contains consultation logic or procedures files, their expected inpu
 | **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
   
     
+# list.php
+|   |   |
+|---|---|
+| **DESCRIPTION:**  | lists consultations for a doctor based on the status and whether they were self assigned or not. Also requires the session token (logged in)   |
+| **EXPECTS:**  |  **interval: int, page: int, selfAssigned: int (1|0), status: int (0|1|2)** in HTTP POST request |
+| **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
+  
+    

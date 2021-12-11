@@ -21,12 +21,22 @@ else{
     }
 
     $ticket = Utility::sanitizeString($_POST["ticket"]);
+    $pUsername = Utility::sanitizeString($_POST["pUsername"]);
+
     $consultationId = Consultation::getIdFromTicket($ticket);
     $consultation = new Consultation($consultationId);
 
     if($globalUserType == Doctor::DOC){
+        if($consultation->isAssigned() && $consultation->getDoctorId() != $globalDoctor->getdoctorId()){
+            exit(Respond::DNATCE());
+        }
+
         exit($globalDoctor->assignToConsultation($consultation, $medId));
     }
 
+    if($consultation->isAssigned() &&
+       $consultation->getPatientId() !== User::getIdFromUserName($pUsername)){
+           exit(Respond::DNATCE());
+       }
     exit($globalMedAssistant->assignDoctor($consultation, $docId));
 ?>
