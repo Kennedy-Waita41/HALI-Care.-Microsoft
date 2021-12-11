@@ -101,7 +101,7 @@ CREATE TABLE `consultation`(
   `patientId` bigint not null,
   `consult_status` tinyint NOT NULL default 0,
   `date_added` datetime default current_timestamp,
-  FOREIGN KEY (`patientId`) REFERENCES 'patient'(`id`) on delete cascade
+  FOREIGN KEY (`patientId`) REFERENCES `patient`(`id`) on delete cascade
 );
 
 CREATE TABLE `symptoms`(
