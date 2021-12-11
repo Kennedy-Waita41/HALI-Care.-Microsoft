@@ -38,6 +38,13 @@ trait UserResponseTrait{
     }
 
     /**
+     * Unqualified Date Error
+     */
+    public static function UDE(){
+        return Response::makeResponse("UDE", "The date format is not accepted");
+    }
+
+    /**
      * No Last Name Error
      */
     public static function NLNE(){

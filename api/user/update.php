@@ -20,8 +20,9 @@
     $updateSqlStr = "";
     $newValues = [];
 
-    $firstName = $_POST["first-name"];
-    $lastName = $_POST["last-name"];
+    $firstName = Utility::sanitizeString($_POST["first-name"]);
+    $lastName = Utility::sanitizeString($_POST["last-name"]);
+    $dob = Utility::sanitizeString($_POST["dob"]);
 
     if(!empty($firstName) && $firstName != $user->getFirstName()){
         if(!Utility::checkName($firstName)){
@@ -43,6 +44,21 @@
 
         $updateSqlStr .= "lastname = ?";
         $newValues[] = $lastName;
+    }
+
+    if(!empty($dob) && $dob != $user->getDob()){
+        $dob = Utility::toDate($dob);
+
+        if(!Utility::isDate($dob)){
+            exit(Respond::UDE());
+        }
+
+        if(count($newValues) > 0){
+            $updateSqlStr .= ", ";
+        }
+
+        $updateSqlStr .= "dob = ?";
+        $newValues[] = $dob;
     }
 
     

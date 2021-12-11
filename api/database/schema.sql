@@ -12,6 +12,7 @@ CREATE TABLE `user` (
   `email` varchar(255),
   `phone` varchar(20),
   `profile_image` varchar(255),
+   `dob` date,
   `ev_code` int default 0,
   `user_password` varchar(256) not null,
   `account_status` tinyint(1) default 1,
@@ -61,7 +62,6 @@ CREATE TABLE `temporary_phone_number` (
 CREATE TABLE `patient`( 
   `id` bigint unsigned not null primary key auto_increment,
   `userId` bigint unsigned not null,
-  `dob` date,
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 );
 

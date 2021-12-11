@@ -15,6 +15,7 @@
                 $phone,
                 $password,
                 $id,
+                $dob,
                 $emailVerified,
                 $evCode,
                 $profileImage,
@@ -599,6 +600,26 @@
         public function setUsername($username)
         {
                         $this->username = $username;
+
+                        return $this;
+        }
+
+        /**
+         * Get the value of dob
+         */ 
+        public function getDob()
+        {
+                        return $this->dob;
+        }
+
+        /**
+         * Set the value of dob
+         *
+         * @return  self
+         */ 
+        public function setDob($dob)
+        {
+                        $this->dob = $dob;
 
                         return $this;
         }

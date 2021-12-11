@@ -36,6 +36,21 @@
              return false;
          }
 
+         /**
+          * checks if the string is a date
+          */
+         public static function isDate($date){
+            
+            return (strtotime($date) !== false) ? true:false;
+         }
+
+         /**
+          * Converts a string into date with format dd/mm/yyyy
+          */
+         public static function toDate($string){
+            return date("d/m/Y", strtotime($string));
+         }
+
           /**
            * Checks if the password is a qualified password
            * @return string|bool PNE|PLLE|PULE|PLSE
