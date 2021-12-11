@@ -11,3 +11,11 @@ This folder contains doctor logic or procedures files, their expected input **pa
 | **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
   
     
+# info.php
+|   |   |
+|---|---|
+| **DESCRIPTION:**  | give the doctor information requested and requires the session token (logged in)   |
+| **EXPECTS:**  |  **parameter: type** in HTTP POST request |
+| **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
+  
+    

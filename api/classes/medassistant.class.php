@@ -35,6 +35,8 @@ class MedAssistant extends User implements  MedAssistantConstantsInterface ,  Me
       $mAInfo = $dbManager->query(MedAssistant::MA_TABLE, ["*"], MedAssistant::MA_ID. " = ?", [$this->mAId]);
       if($mAInfo === false) return false;
       $this->setId($mAInfo[User::USER_FOREIGN_ID]);
+      $this->setHospital($mAInfo["hospital"]);
+      
       return parent::loadUser($this->id);
   }
 

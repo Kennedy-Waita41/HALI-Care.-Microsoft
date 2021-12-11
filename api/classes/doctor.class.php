@@ -20,7 +20,8 @@ use ApprovableTrait;
    */
   private $doctorId,
           $hospital,
-          $accountStatus;
+          $accountStatus,
+          $specialization;
 
   /**
    * @param int $doctorId - The doctor ID from the doctor table. Usually,
@@ -43,6 +44,8 @@ use ApprovableTrait;
       $doctorInfo = $dbManager->query(Doctor::DOC_TABLE, ["*"], Doctor::DOC_ID. " = ?", [$this->id]);
       if($doctorInfo === false) return false;
       $this->setId($doctorInfo[User::USER_FOREIGN_ID]);
+      $this->setHospital($doctorInfo["hospital"]);
+      $this->setSpecialization($doctorInfo["specialization"]);
       return parent::loadUser($this->id);
   }
 
@@ -65,16 +68,18 @@ use ApprovableTrait;
     if(empty($this->firstName)) return Respond::NFNE();
     if(empty($this->lastName)) return Respond::NLNE();
     if(empty($this->hospital)) return Respond::NHE();
+    if(empty($this->specialization)) return Respond::NSE();
 
     if(!Utility::checkName($this->firstName) || !Utility::checkName($this->lastName)) return Respond::UNE();
 
     if(!Utility::checkName($this->hospital)) return Respond::UQHNE();
+    if(!Utility::checkName($this->specialization)) return Respond::UQSNE();
 
     $response = parent::register();
     if($response != Respond::OK()) return $response;
 
     $dbManager = new DbManager();
-    $doctorId = $dbManager->insert(Doctor::DOC_TABLE, [User::USER_FOREIGN_ID, "hospital"],[$this->id, $this->hospital]);
+    $doctorId = $dbManager->insert(Doctor::DOC_TABLE, [User::USER_FOREIGN_ID, "hospital", "specialization"],[$this->id, $this->hospital, $this->specialization]);
 
     if($doctorId == -1) return Respond::SQE();
     $this->setDoctorId($doctorId);
@@ -84,6 +89,7 @@ use ApprovableTrait;
       "hospital" => $this->hospital,
       "firstName" => $this->firstName,
       "lastName" => $this->lastName,
+      "specialization" => $this->specialization,
       "message" => "Successfully registered Doctor"
     ];
 
@@ -200,6 +206,26 @@ use ApprovableTrait;
   public function setAccountStatus($accountStatus)
   {
             $this->accountStatus = $accountStatus;
+
+            return $this;
+  }
+
+  /**
+   * Get the value of specialization
+   */ 
+  public function getSpecialization()
+  {
+            return $this->specialization;
+  }
+
+  /**
+   * Set the value of specialization
+   *
+   * @return  self
+   */ 
+  public function setSpecialization($specialization)
+  {
+            $this->specialization = $specialization;
 
             return $this;
   }
