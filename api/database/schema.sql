@@ -78,6 +78,7 @@ CREATE TABLE `medical_assistant`(
 CREATE TABLE `doctor`( 
   `id` bigint unsigned not null primary key auto_increment,
   `userId` bigint unsigned not null,
+  `specialization` varchar(255),
   `hospital` varchar(255) not null,
   `account_status` tinyint NOT NULL default 0,
   `created_on` datetime default current_timestamp,

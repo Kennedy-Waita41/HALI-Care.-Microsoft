@@ -79,6 +79,7 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
 
   /**
    * Get consultation ID from ticket
+   * @param string $consultationTicket
    */
   public static function getIdFromTicket($consultationTicket){
     return preg_split("/-/", $consultationTicket)[1];
@@ -114,7 +115,7 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
 
   /**
    * Set the value of consultationStatus
-   *
+   * 
    * @return  self
    */ 
   public function setConsultationStatus($consultationStatus)
@@ -146,6 +147,7 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
 
   /**
    * Get the value of symptoms
+   * @return Symptoms
    */ 
   public function getSymptoms()
   {
@@ -157,7 +159,7 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
    *
    * @return  self
    */ 
-  public function setSymptoms($symptoms)
+  public function setSymptoms(Symptoms $symptoms)
   {
             $this->symptoms = $symptoms;
 
@@ -166,6 +168,7 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
 
   /**
    * Get the value of vitalSigns
+   * @return VitalSigns
    */ 
   public function getVitalSigns()
   {
@@ -177,7 +180,7 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
    *
    * @return  self
    */ 
-  public function setVitalSigns($vitalSigns)
+  public function setVitalSigns(vitalSigns $vitalSigns)
   {
             $this->vitalSigns = $vitalSigns;
 

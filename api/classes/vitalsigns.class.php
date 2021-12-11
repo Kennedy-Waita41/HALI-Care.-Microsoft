@@ -54,7 +54,7 @@ class VitalSigns{
    * Updates the vital signs
    * @param DbManager $dbManager - if available
    */
-  public function update($dbManager = null){
+  private function update($dbManager = null){
     if(empty($this->id)){
       exit(Respond::NCFE()); //no consultation found error
     }
@@ -97,13 +97,15 @@ class VitalSigns{
   /**
    * Adds a new vitals to the vitals table
    * Will remove the old vitals and add the new one
+   * @param DbManager $dbManager
    */
-  public function save(){
+  private function add($dbManager = null){
     if(empty($this->id)){
       return Respond::NCFE(); // no consultation found error
     }
 
-    $dbManager = new DbManager();
+    $dbManager = ($dbManager === null) ? new DbManager(): $dbManager;
+
     if(!$dbManager->insert(Consultation::VITALSIGNS_TABLE, [Consultation::CONSULT_FOREIGN_ID],[$this->id]) === -1){
       return Respond::SQE();
     }
@@ -111,7 +113,18 @@ class VitalSigns{
     return $this->update($dbManager);
   }
 
-  
+  /**
+   * Adds a new vital signs.
+   * This function will delete the old row, and add the new one
+   */
+  public function save(){
+    $dbManager = new DbManager();
+    if(!$dbManager->delete(Consultation::VITALSIGNS_TABLE, Consultation::CONSULT_FOREIGN_ID . " = ?", [$this->id])){
+      return Respond::SQE();
+    }
+
+    return $this->add($dbManager);
+  }
 
   /**
    * Get the value of id

@@ -13,6 +13,13 @@ trait ConsultationResponseTrait{
         return Response::makeResponse("NCFE", "No Consultation request was found with using the provided information");
     }
 
+    /**
+     * Consultation Already Completed Error
+     */
+    public static function CACE(){
+        return Response::makeResponse("CACE", "You cannot update the consultation with this ticket number, it is already marked as completed");
+    }
+
 }
 
 ?>

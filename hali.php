@@ -222,7 +222,7 @@ define("HALI_CONFIG", "hali-config.json");
 
       if($return == 0){
         $file = fopen("$api->root/$folder/$filename.php", "w");
-
+        $function .= ($auth) ? " and requires the session token (logged in)": " and doesn't require the session token (not logged in)";
         $auth = ($auth !== false)? "require('./auth.inc.php');":"";
         $master = "require('./master.inc.php');";
         $content = "<?php\n$master\n$auth\n\n/**\n * Description: $function \n */\n\n?>";
