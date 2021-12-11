@@ -21,8 +21,6 @@ trait ApprovableTrait{
     return true;
   }
 
-  
-
 }
 
 ?>

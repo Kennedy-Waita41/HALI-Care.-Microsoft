@@ -19,6 +19,20 @@ trait MedAssistantResponseTrait{
     public static function UQHNE(){
         return Respond::makeResponse("UQHNE", "Your workplace name has unacceptable characters.");
     }
+
+    /**
+     * No MA Contact Info Error
+     */
+    public static function NMACIE(){
+        return Response::makeResponse("NMACIE", "Medical Assistant phone number, email, and place of work must be added to perform this function. Please update profile");
+    }
+
+    /**
+     * No Doctor Contact Info Not Set Error
+     */
+    public static function DCINSE(){
+        return Response::makeResponse("NCINSE", "The doctor you are trying to assign hasn't added their contact info or place of work yet. Please inform them to.");
+    }
 }
 
 ?>

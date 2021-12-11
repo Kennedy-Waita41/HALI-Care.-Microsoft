@@ -15,13 +15,17 @@ require('./auth.inc.php');
  $consultationId = Consultation::getIdFromTicket($ticket);
 
  $consultation = new Consultation($consultationId);
+ $patient = new Patient($consultation->getPatientId());
+
+ if(!$patient->canRequest()){
+     exit(Respond::NPCIE());
+ }
 
  if($consultation->getConsultationStatus() == Consultation::CONSULT_COMPLETE){
      exit(Respond::CACE());
  }
 
  $vitalSigns = $consultation->getVitalSigns();
-
  $vitalSigns->setBloodPressure($bloodPressure);
  $vitalSigns->setRespirationRate($respRate);
  $vitalSigns->setBodyTemperature($bodyTemp);

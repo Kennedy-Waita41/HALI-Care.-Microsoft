@@ -122,6 +122,22 @@ use ApprovableTrait;
   }
 
   /**
+   * Assign this doctor to a consultation
+   * 
+   */
+  public function assignToConsultation(Consultation $consultation, $medId = 0){
+    if(!$this->isApprovable()){
+      return Respond::NDCIE();
+    }
+
+    if(!$consultation->assign($this->id, $medId)){
+      return Respond::SQE();
+    }
+
+    return Respond::OK();
+  }
+
+  /**
    * Get the value of doctorId
    */ 
   public function getdoctorId()

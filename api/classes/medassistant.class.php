@@ -114,6 +114,27 @@ class MedAssistant extends User implements  MedAssistantConstantsInterface ,  Me
   }
 
   /**
+   * Assigns a doctor to a consultation
+   * @param Consultation $consultation
+   * @param int $doctorId
+   */
+  public function assignDoctor($consultation, $doctorId){
+    if(empty($this->id)){
+      return Respond::NIE();
+    }
+
+    $doctor = new Doctor($doctorId);
+
+    $resp = $doctor->assignToConsultation($consultation, $this->id);
+
+    if($resp == Respond::NDCIE()){
+      return Respond::DCINSE();
+    }
+
+    return $resp;
+  }
+
+  /**
    * Get the value of mAId
    */ 
   public function getMAId()

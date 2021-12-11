@@ -121,3 +121,13 @@ CREATE TABLE `vital_signs`(
   `updated_on` datetime default current_timestamp on update current_timestamp ,
   FOREIGN KEY (`consultationId`) REFERENCES `consultation`(`id`) on delete cascade
 );
+
+CREATE TABLE `doctor_consultation`(
+  `consultationId` BIGINT NOT NULL PRIMARY KEY,
+  `doctorId` BIGINT NOT NULL,
+  `medAssistantId` BIGINT,
+  `created_on` datetime default current_timestamp,
+  FOREIGN KEY (`consultationId`) REFERENCES `consultation`(`id`) on delete cascade,
+  FOREIGN KEY (`medAssistantId`) REFERENCES `medical_assistant`(`id`), 
+  FOREIGN KEY (`doctorId`) REFERENCES `doctor`(`id`) on delete cascade
+);

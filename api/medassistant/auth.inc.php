@@ -5,4 +5,8 @@ require(__DIR__.'/../auth.inc.php');
     if(! ($globalMedAssistant instanceof MedAssistant)){
         exit(Respond::UTE());
     }
+
+    if(!$globalMedAssistant->isApprovable()){
+        exit(Respond::NMACIE());
+    }
 ?>
