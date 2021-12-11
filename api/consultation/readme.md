@@ -9,3 +9,11 @@ This folder contains consultation logic or procedures files, their expected inpu
 | **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
   
     
+# add.php
+|   |   |
+|---|---|
+| **DESCRIPTION:**  | Does what the name suggests and requires the session token (logged in)   |
+| **EXPECTS:**  |  |
+| **OUTPUT OR RESPONSE** | As specified in the api/readme.md with the consultation ticket  |  
+  
+    

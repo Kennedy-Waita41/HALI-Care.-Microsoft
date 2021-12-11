@@ -29,7 +29,9 @@ use ConsultationResponseTrait;
 
     private $message, $status, $format;
 
-    const F_HTML = "html", F_PLAIN = "plain";
+    const F_HTML = "html", F_PLAIN = "plain",
+          MSG_SUCCESS = "Operation successful",
+          STATUS_OK = "OK";
 
     public function __construct()
     {

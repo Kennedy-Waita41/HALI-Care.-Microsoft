@@ -50,6 +50,27 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
     return(new DbManager()) -> update(Consultation::CONSULT_TABLE, "consult_status = ?", [Consultation::CONSULT_COMPLETE], Consultation::CONSULT_ID." = ?", [$this->consultationId]);
   }
 
+  public function add(){
+    if(!isset($this->patientId)){
+      return Respond::NPIFE();
+    }
+
+    $dbManager = new DbManager();
+    $insertId = $dbManager->insert(Consultation::CONSULT_TABLE, [Patient::PATIENT_FOREIGN_ID], [$this->patientId]);
+
+    if($insertId === -1){
+      return Respond::SQE();
+    }
+
+    $this->consultationId = $insertId;
+    $ticket = Consultation::getTicket($this->consultationId);
+
+    return Respond::makeResponse(Respond::STATUS_OK, 
+    json_encode([
+      "ticket" => $ticket,
+      "message" => Respond::MSG_SUCCESS]));
+  }
+
   /**
    * Called to generate consultation ticket
    */

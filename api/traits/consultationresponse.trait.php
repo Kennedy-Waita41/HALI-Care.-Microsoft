@@ -20,6 +20,13 @@ trait ConsultationResponseTrait{
         return Response::makeResponse("CACE", "You cannot update the consultation with this ticket number, it is already marked as completed");
     }
 
+    /**
+     * No Patient ID Found Error
+     */
+    public static function NPIFE(){
+        return Response::makeResponse("NPIFE", "The operation requires a patient to be logged in");
+    }
+
 }
 
 ?>

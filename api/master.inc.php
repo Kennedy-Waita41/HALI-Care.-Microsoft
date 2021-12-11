@@ -20,8 +20,8 @@ spl_autoload_register(function($name){
 
 
  $isLoggedIn = false;
- $userId = 0;
- $specificId = 0;
+ $userId = 0; //global user Id from the user table
+ $specificId = 0; //global Id from the specific-user table such as patient, doctor, etc.
  $currentUsername = "";
  $sessionId;
  //checking if the user is logged in.
@@ -45,6 +45,7 @@ spl_autoload_register(function($name){
    
    if($result !== false){
       $userId = $result[User::USER_FOREIGN_ID];
+      $specificId = $id;
       $sessionId = $result[User::SESSION_ID];
       $isLoggedIn = true;
    }
