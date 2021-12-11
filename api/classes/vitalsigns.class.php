@@ -36,7 +36,7 @@ class VitalSigns{
   public function load($consultationId)
   {
     $dbManager = new DbManager();
-    $vInfo = $dbManager->query(Consultation::VITALSIGNS_TABLE, ["*"], Consultation::FOREIGN_ID . " = ?", [$consultationId]);
+    $vInfo = $dbManager->query(Consultation::VITALSIGNS_TABLE, ["*"], Consultation::CONSULT_FOREIGN_ID . " = ?", [$consultationId]);
 
     if($vInfo === false){
       return false;
@@ -87,7 +87,7 @@ class VitalSigns{
     if($dbManager == null){
       $dbManager = new DbManager();
     }
-    if(!$dbManager->update(Consultation::VITALSIGNS_TABLE, $updateStr, $values,Consultation::FOREIGN_ID ." = ?", [$this->id])){
+    if(!$dbManager->update(Consultation::VITALSIGNS_TABLE, $updateStr, $values,Consultation::CONSULT_FOREIGN_ID ." = ?", [$this->id])){
       return Respond::SQE();
     }
 
@@ -104,7 +104,7 @@ class VitalSigns{
     }
 
     $dbManager = new DbManager();
-    if(!$dbManager->insert(Consultation::VITALSIGNS_TABLE, [Consultation::FOREIGN_ID],[$this->id]) === -1){
+    if(!$dbManager->insert(Consultation::VITALSIGNS_TABLE, [Consultation::CONSULT_FOREIGN_ID],[$this->id]) === -1){
       return Respond::SQE();
     }
 

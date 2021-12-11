@@ -95,6 +95,13 @@ CREATE TABLE `medical_admin`(
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 );
 
+CREATE TABLE `consultation`(
+  `id` BIGINT NOT NULL PRIMARY KEY auto_increment,
+  `patientId` bigint not null,
+  `consult_status` tinyint NOT NULL default 0,
+  `date_added` datetime default current_timestamp,
+  FOREIGN KEY (`patientId`) REFERENCES 'patient'(`id`) on delete cascade
+);
 
 CREATE TABLE `symptoms`(
   `consultationId` BIGINT NOT NULL PRIMARY KEY,
@@ -112,11 +119,4 @@ CREATE TABLE `vital_signs`(
   `created_on` datetime default current_timestamp,
   `updated_on` datetime default current_timestamp on update current_timestamp ,
   FOREIGN KEY (`consultationId`) REFERENCES `consultation`(`id`) on delete cascade
-);
-
-CREATE TABLE `consultation`(
-  `id` BIGINT NOT NULL PRIMARY KEY,
-  `consult_status` tinyint NOT NULL default 0,
-  `date_added` datetime default current_timestamp,
-  FOREIGN KEY (`patientId`) REFERENCES 'patient'(`id`) on delete cascade
 );

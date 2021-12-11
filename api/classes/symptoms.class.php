@@ -32,7 +32,7 @@ class Symptoms{
    */
   public function load($consultationId){
     $dbManager = new DbManager();
-    $symInfo = $dbManager->query(Consultation::SYMPTOMS_TABLE, ["*"], Consultation::FOREIGN_ID . " = ?", [$consultationId]);
+    $symInfo = $dbManager->query(Consultation::SYMPTOMS_TABLE, ["*"], Consultation::CONSULT_FOREIGN_ID . " = ?", [$consultationId]);
 
     if($symInfo === false){
       return false;

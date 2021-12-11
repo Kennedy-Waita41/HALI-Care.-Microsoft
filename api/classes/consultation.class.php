@@ -19,7 +19,9 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
   private $consultationId,
           $patientId,
           $consultationStatus,
-          $dateAdded;
+          $dateAdded,
+          $symptoms,
+          $vitalSigns;
 
   public function __construct($consultationId = 0){
     if($consultationId < 1) return;
@@ -36,7 +38,9 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
     if($consultationInfo === false) return false;
 
     $this->setConsultationStatus($consultationInfo["consult_status"]);
-    $this->setPatientId($consultationInfo[Patient::PATIENT_FOREIGN_ID]);    
+    $this->setPatientId($consultationInfo[Patient::PATIENT_FOREIGN_ID]);
+    $this->setSymptoms(new Symptoms($this->consultationId));
+    $this->setVitalSigns(new VitalSigns($this->consultationId));    
   }
 
   /**
@@ -71,6 +75,13 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
     $this->consultationId = $consultationId;
 
     return $this;
+  }
+
+  /**
+   * Get consultation ID from ticket
+   */
+  public static function getIdFromTicket($consultationTicket){
+    return preg_split("/-/", $consultationTicket)[1];
   }
 
   /**
@@ -131,6 +142,46 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
     $this->dateAdded = $dateAdded;
 
     return $this;
+  }
+
+  /**
+   * Get the value of symptoms
+   */ 
+  public function getSymptoms()
+  {
+            return $this->symptoms;
+  }
+
+  /**
+   * Set the value of symptoms
+   *
+   * @return  self
+   */ 
+  public function setSymptoms($symptoms)
+  {
+            $this->symptoms = $symptoms;
+
+            return $this;
+  }
+
+  /**
+   * Get the value of vitalSigns
+   */ 
+  public function getVitalSigns()
+  {
+            return $this->vitalSigns;
+  }
+
+  /**
+   * Set the value of vitalSigns
+   *
+   * @return  self
+   */ 
+  public function setVitalSigns($vitalSigns)
+  {
+            $this->vitalSigns = $vitalSigns;
+
+            return $this;
   }
 }
 
