@@ -93,3 +93,11 @@ This folder contains consultation logic or procedures files, their expected inpu
 }`  |  
   
     
+# info.php
+|   |   |
+|---|---|
+| **DESCRIPTION:**  | gives the information whose ticket is given and requires the session token (logged in)   |
+| **EXPECTS:**  |  **ticket: string** in HTTP POST request |
+| **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
+  
+    
