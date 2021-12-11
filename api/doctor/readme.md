@@ -7,7 +7,7 @@ This folder contains doctor logic or procedures files, their expected input **pa
 |   |   |
 |---|---|
 | **DESCRIPTION:**  | To signup doctor   |
-| **EXPECTS:**  |  **parameter: type** in HTTP POST request |
+| **EXPECTS:**  |  **firstname: string, lastname: string, hospital: string** in HTTP POST request |
 | **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
   
     
