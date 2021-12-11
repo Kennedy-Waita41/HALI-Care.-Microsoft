@@ -11,6 +11,7 @@ require('./auth.inc.php');
  $bodyTemp = (float)$_POST["bodyTemp"];
  $pulseRate = (float)$_POST["pulseRate"];
  $respRate = (float)$_POST["respRate"];
+ $patUserName = Utility::sanitizeString($_POST["pUsername"]);
 
  $consultationId = Consultation::getIdFromTicket($ticket);
 
@@ -19,6 +20,10 @@ require('./auth.inc.php');
 
  if(!$patient->canRequest()){
      exit(Respond::NPCIE());
+ }
+
+ if($patient->getId() !== User::getIdFromUserName($patUserName)){
+    exit(Respond::CNFPE());
  }
 
  if($consultation->getConsultationStatus() == Consultation::CONSULT_COMPLETE){

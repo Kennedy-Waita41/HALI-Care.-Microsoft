@@ -27,6 +27,27 @@ trait ConsultationResponseTrait{
         return Response::makeResponse("NPIFE", "The operation requires a patient to be logged in");
     }
 
+    /**
+     * Consultation Not Assignable Error
+     */
+    public static function CNAE(){
+        return Response::makeResponse("CNAE", "There are no recorded symptoms for this consultation");
+    }
+
+    /**
+     * Consultation Not For Patient Error
+     */
+    public static function CNFPE(){
+        return Response::makeResponse("CNFPE", "The consultation with this ticket doesn't belong to the patient for whom its being updated");
+    }
+
+    /**
+     * Doctor Not Assigned to Consultation Error
+     */
+    public static function DNATCE(){
+        return Response::makeResponse("DNATCE", "The consultation with this ticket doesn't is assigned to another doctor");
+    }
+
 }
 
 ?>

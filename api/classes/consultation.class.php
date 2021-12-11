@@ -21,7 +21,11 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
           $consultationStatus,
           $dateAdded,
           $symptoms,
-          $vitalSigns;
+          $vitalSigns,
+          $doctorId,
+          $medAssistantId,
+          $isAssigned = false,
+          $dateAssigned;
 
   public function __construct($consultationId = 0){
     if($consultationId < 1) return;
@@ -40,7 +44,19 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
     $this->setConsultationStatus($consultationInfo["consult_status"]);
     $this->setPatientId($consultationInfo[Patient::PATIENT_FOREIGN_ID]);
     $this->setSymptoms(new Symptoms($this->consultationId));
-    $this->setVitalSigns(new VitalSigns($this->consultationId));    
+    $this->setVitalSigns(new VitalSigns($this->consultationId));
+    
+    //loading doctor and medical assistants if they are set.
+    $assignedInfo = $dbManager->query(Consultation::DOCTOR_CONSULT_TABLE, ["*"], Consultation::CONSULT_FOREIGN_ID . " = ?", [$this->consultationId]);
+
+    if($assignedInfo !== false){
+      $this->setDoctorId($assignedInfo[Doctor::DOC_FOREIGN_ID]);
+      $this->setMedAssistantId($assignedInfo[MedAssistant::MA_FOREIGN_ID]);
+      $this->setDateAssigned($assignedInfo["created_on"]);
+      $this->setAsAssigned(true);
+    } 
+
+    return true;
   }
 
   /**
@@ -84,14 +100,35 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
     }
 
     $dbManager = new DbManager();
+    
     if(!$dbManager->delete(Consultation::DOCTOR_CONSULT_TABLE, Consultation::CONSULT_FOREIGN_ID . " = ?", [$this->consultationId])
     && 
     $dbManager->insert(Consultation::DOCTOR_CONSULT_TABLE, $columns, $values) > 0){
       return false;
     }
+
     return true;
   }
 
+  /**
+   * Updates the status of a consultation in the database
+   * 
+   */
+  public function changeStatus($status = Consultation::CONSULT_PENDING, DbManager $dbManager = null){
+    if($dbManager == null){
+      $dbManager = new DbManager();
+    }
+
+    return $dbManager->update(Consultation::CONSULT_TABLE, "consult_status = ?", [$status], Consultation::CONSULT_ID . " = ?", [$this->consultationId]);
+  }
+
+  /**
+   * checks if the consultation can be assigned by checking if it has
+   *  recorded symptoms
+   */
+  public function isAssignable(){
+    return (empty($this->symptoms)) ? false: true;
+  }
   /**
    * Called to generate consultation ticket
    */
@@ -225,6 +262,86 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
   public function setVitalSigns(vitalSigns $vitalSigns)
   {
             $this->vitalSigns = $vitalSigns;
+
+            return $this;
+  }
+
+  /**
+   * Get the value of doctorId
+   */ 
+  public function getDoctorId()
+  {
+            return $this->doctorId;
+  }
+
+  /**
+   * Set the value of doctorId
+   *
+   * @return  self
+   */ 
+  public function setDoctorId($doctorId)
+  {
+            $this->doctorId = $doctorId;
+
+            return $this;
+  }
+
+  /**
+   * Get the value of medAssistantId
+   */ 
+  public function getMedAssistantId()
+  {
+            return $this->medAssistantId;
+  }
+
+  /**
+   * Set the value of medAssistantId
+   *
+   * @return  self
+   */ 
+  public function setMedAssistantId($medAssistantId)
+  {
+            $this->medAssistantId = $medAssistantId;
+
+            return $this;
+  }
+
+  /**
+   * Get the value of isAssigned
+   */ 
+  public function isAssigned()
+  {
+            return $this->isAssigned;
+  }
+
+  /**
+   * Set the value of isAssigned
+   *
+   * @return  self
+   */ 
+  public function setAsAssigned($isAssigned)
+  {
+            $this->isAssigned = $isAssigned;
+
+            return $this;
+  }
+
+  /**
+   * Get the value of dateAssigned
+   */ 
+  public function getDateAssigned()
+  {
+            return $this->dateAssigned;
+  }
+
+  /**
+   * Set the value of dateAssigned
+   *
+   * @return  self
+   */ 
+  public function setDateAssigned($dateAssigned)
+  {
+            $this->dateAssigned = $dateAssigned;
 
             return $this;
   }

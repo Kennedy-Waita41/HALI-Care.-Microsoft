@@ -5,7 +5,7 @@ This folder contains consultation logic or procedures files, their expected inpu
 |   |   |
 |---|---|
 | **DESCRIPTION:**  | Does what the name suggests  and requires the session token |
-| **EXPECTS:**  |  **ticket: string, bodyTemp: number, bloodPressure: number, pulseRate: number, respRate: number** in HTTP POST request |
+| **EXPECTS:**  |  **ticket: string, bodyTemp: number, bloodPressure: number, pulseRate: number, respRate: number, pUsername: string** in HTTP POST request |
 | **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
   
     
@@ -22,6 +22,14 @@ This folder contains consultation logic or procedures files, their expected inpu
 |---|---|
 | **DESCRIPTION:**  | this script assigns a doctor to a consultation. This can only be called by a medical assistant or a doctor and requires the session token (logged in)   |
 | **EXPECTS:**  |  **doctorId: int, ticket: string** in HTTP POST request |
+| **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
+  
+    
+# complete.php
+|   |   |
+|---|---|
+| **DESCRIPTION:**  | changes the status of a consultation to completed. and requires the session token (logged in)   |
+| **EXPECTS:**  |  **ticket: string** in HTTP POST request |
 | **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
   
     

@@ -130,10 +130,17 @@ use ApprovableTrait;
       return Respond::NDCIE();
     }
 
+    if(!$consultation->isAssignable()){
+      return Respond::CNAE();
+    }
+    $prevStatus = $consultation->getConsultationStatus();
+
     if(!$consultation->assign($this->id, $medId)){
+      $consultation->changeStatus($prevStatus);
       return Respond::SQE();
     }
 
+    $consultation->changeStatus(Consultation::CONSULT_ASSIGNED);
     return Respond::OK();
   }
 
