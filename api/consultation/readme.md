@@ -62,7 +62,8 @@ Ok responses looks like this
                 "status": 0, 
                 "medAssistantId": 1,
                 "isAssigned": true
-            }
+            },
+            ...
         ],
         "patients": {
             "c1": { 
@@ -73,7 +74,8 @@ Ok responses looks like this
                 "phone": "+254786908765",    
                 "email": "john@doe.com", 
                 "profileImageLink": "/storage/profile_images/1.jpg?xxx" 
-            }
+            },
+            ...
         },
 
         "medicalAssistants": {
@@ -85,8 +87,10 @@ Ok responses looks like this
                 "phone": "+254786908765",    
                 "email": "mary@doe.com", 
                 "profileImageLink": "/storage/profile_images/1.jpg?xxx" 
-            }
-        }
+            },
+            ...
+        },
+        
     }
 }`
 `</pre>  |  
