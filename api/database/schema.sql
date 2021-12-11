@@ -90,29 +90,29 @@ CREATE TABLE `medical_admin`(
   `id` bigint unsigned not null primary key auto_increment,
   `userId` bigint unsigned not null,
   `hospital` varchar(255) not null,
-  `account_status` tinyint NOT NULL default 0,
+  `account_status` tinyint unsigned NOT NULL default 0,
   `created_on` datetime default current_timestamp,
   `updated_on` datetime default current_timestamp on update current_timestamp ,
   FOREIGN KEY (`userId`) REFERENCES `user`(`id`) on delete cascade
 );
 
 CREATE TABLE `consultation`(
-  `id` BIGINT NOT NULL PRIMARY KEY auto_increment,
-  `patientId` bigint not null,
+  `id` BIGINT UNSIGNED NOT NULL PRIMARY KEY auto_increment,
+  `patientId` bigint UNSIGNED not null,
   `consult_status` tinyint NOT NULL default 0,
   `date_added` datetime default current_timestamp,
   FOREIGN KEY (`patientId`) REFERENCES `patient`(`id`) on delete cascade
 );
 
 CREATE TABLE `symptoms`(
-  `consultationId` BIGINT NOT NULL PRIMARY KEY,
+  `consultationId` BIGINT UNSIGNED NOT NULL PRIMARY KEY,
   `symptoms` VARCHAR(2000) NOT NULL,
   `created_on` datetime default current_timestamp,
   FOREIGN KEY (`consultationId`) REFERENCES `consultation`(`id`) on delete cascade
 );
 
 CREATE TABLE `vital_signs`(
-  `consultationId` BIGINT NOT NULL PRIMARY KEY,
+  `consultationId` BIGINT UNSIGNED NOT NULL PRIMARY KEY,
   `body_temp` FLOAT,
   `pulse_rate` FLOAT,
   `respiration_rate` FLOAT,
@@ -123,9 +123,9 @@ CREATE TABLE `vital_signs`(
 );
 
 CREATE TABLE `doctor_consultation`(
-  `consultationId` BIGINT NOT NULL PRIMARY KEY,
-  `doctorId` BIGINT NOT NULL,
-  `medAssistantId` BIGINT,
+  `consultationId` BIGINT UNSIGNED NOT NULL PRIMARY KEY,
+  `doctorId` BIGINT UNSIGNED NOT NULL,
+  `medAssistantId` BIGINT UNSIGNED,
   `created_on` datetime default current_timestamp,
   FOREIGN KEY (`consultationId`) REFERENCES `consultation`(`id`) on delete cascade,
   FOREIGN KEY (`medAssistantId`) REFERENCES `medical_assistant`(`id`), 
