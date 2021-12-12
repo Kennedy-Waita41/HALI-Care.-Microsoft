@@ -8,6 +8,10 @@ require('./auth.inc.php');
     $ticket = isset($_POST["ticket"])? Utility::sanitizeString($_POST["ticket"]): exit(Respond::NCFE());
 
     $consultation = new Consultation(Consultation::getIdFromTicket($ticket));
+    if(empty($consultation->getPatientId())){
+        exit(Respond::NCFE());
+    }
+
     $patient = new Patient($consultation->getPatientId());
     $symptoms = $consultation->getSymptoms();
     $vitalSigns = $consultation->getVitalSigns();
