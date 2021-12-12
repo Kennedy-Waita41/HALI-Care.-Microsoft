@@ -12,6 +12,7 @@ require('./auth.inc.php');
         json_encode(
                 [
                     "id" => $globalPatient->getPatientId(),
+                    "username" => $globalPatient->getUsername(),
                     "firstname" => $globalPatient->getFirstName(),
                     "lastname" => $globalPatient->getLastName(),
                     "email" => $globalPatient->getEmail(),
