@@ -43,6 +43,7 @@
                 $this->setFirstName($userInfo['firstname']);
                 $this->setLastName($userInfo['lastname']);
                 $this->setEmail($userInfo['email']);
+                $this->setDob($userInfo["dob"]);
                 $this->setPassword($userInfo['user_password']);
                 $this->setPhone($userInfo['phone']);
                 $this->setEmailVerified($userInfo['email_verified']);
@@ -145,7 +146,7 @@
             }
     
             try{
-                $columns = [User::USER_ID, "firstname", "lastname","email", "phone","user_password", "profile_image"];
+                $columns = [User::USER_ID, "firstname", "lastname", "dob", "email", "phone","user_password", "profile_image"];
                 $values = [$this->id];
                 
                 $dbManager = new DbManager();
@@ -177,6 +178,7 @@
                         "token" => "$usernameId-$sessionToken-$appendTo",
                         "firstname" => $details["firstname"],
                         "lastname" => $details["lastname"],
+                        "dob" => $details["dob"],
                         "phone" => $details["phone"],
                         "email" => $details["email"],
                         "profileImage" => User::PROFILE_IMG_PATH."/". $details["profile_image"],

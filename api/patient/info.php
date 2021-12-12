@@ -13,6 +13,7 @@ require('./auth.inc.php');
                 [
                     "id" => $globalPatient->getPatientId(),
                     "firstname" => $globalPatient->getFirstName(),
+                    "lastname" => $globalPatient->getLastName(),
                     "email" => $globalPatient->getEmail(),
                     "phone" => $globalPatient->getPhone(),
                     "dob" => $globalPatient->getDob(),

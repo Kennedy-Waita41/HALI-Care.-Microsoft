@@ -48,7 +48,7 @@
           * Converts a string into date with format dd/mm/yyyy
           */
          public static function toDate($string){
-            return date("d/m/Y", strtotime($string));
+            return date("Y-m-d", strtotime($string));
          }
 
           /**

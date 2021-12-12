@@ -133,7 +133,7 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
    * Called to generate consultation ticket
    */
   public static function getTicket($consultationId){
-    return Consultation::CON." - ".$consultationId;
+    return Consultation::CON."-".$consultationId;
   }
 
   /**

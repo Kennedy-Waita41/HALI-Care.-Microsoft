@@ -20,10 +20,10 @@
     $updateSqlStr = "";
     $newValues = [];
 
-    $firstName = Utility::sanitizeString($_POST["first-name"]);
-    $lastName = Utility::sanitizeString($_POST["last-name"]);
+    $firstName = Utility::sanitizeString($_POST["firstname"]);
+    $lastName = Utility::sanitizeString($_POST["lastname"]);
     $dob = Utility::sanitizeString($_POST["dob"]);
-
+    
     if(!empty($firstName) && $firstName != $user->getFirstName()){
         if(!Utility::checkName($firstName)){
             exit(Respond::UNE());
@@ -46,9 +46,8 @@
         $newValues[] = $lastName;
     }
 
-    if(!empty($dob) && $dob != $user->getDob()){
+    if(!empty($dob)){
         $dob = Utility::toDate($dob);
-
         if(!Utility::isDate($dob)){
             exit(Respond::UDE());
         }
