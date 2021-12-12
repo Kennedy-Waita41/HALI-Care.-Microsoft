@@ -99,11 +99,11 @@
                 $values[] = $this->firstName;
             }
 
-            if(!empty($lastName)){
-                if(!Utility::checkName($lastName)) return Respond::UNE();
+            if(!empty($this->lastName)){
+                if(!Utility::checkName($this->lastName)) return Respond::UNE();
 
                 $columnSpecs[] = "lastname";
-                $values[] = $lastName;
+                $values[] = $this->lastName;
             }
 
             $dbManager = new DbManager();
