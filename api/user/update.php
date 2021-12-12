@@ -100,9 +100,9 @@
             exit(Respond::UEE());
         }
 
-        if(User::doesEmailExist($email, $dbManager)){
-            exit(Respond::EEE());
-        }
+        // if(User::doesEmailExist($email, $dbManager)){
+        //     exit(Respond::EEE());
+        // }
 
         $dbManager->delete("temporary_email", User::USER_FOREIGN_ID." = ?", [$user->getId()]);
 
@@ -121,9 +121,9 @@
             exit(Respond::UQPNE());
         }
 
-        if(User::doesPhoneNumberExist($phone, $dbManager)){
-            exit(Respond::PNEE());
-        }
+        // if(User::doesPhoneNumberExist($phone, $dbManager)){
+        //     exit(Respond::PNEE());
+        // }
 
         $dbManager->delete("temporary_phone_number", "userId = ?", [$user->getId()]);
 
