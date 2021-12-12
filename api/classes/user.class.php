@@ -164,11 +164,8 @@
                     //remove the old tokens
                     $sessionToken = bin2hex(openssl_random_pseudo_bytes(255));
 
-                    if(!$dbManager->update(User::SESSION_TABLE, "session_token = ?", [$sessionToken], User::USER_FOREIGN_ID ." = ?",[$this->id])
-                        ){
-                        
-                            return Respond::SQE();
-                            
+                    if(!$dbManager->insert(User::SESSION_TABLE, ["session_token", User::USER_FOREIGN_ID], [$sessionToken, $this->id])){
+                        return Respond::SQE();
                     }
 
                     //the specific ID from the patient, doctor, ..., table 
