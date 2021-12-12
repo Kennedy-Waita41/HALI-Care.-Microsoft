@@ -43,8 +43,7 @@ spl_autoload_register(function($name){
 
    $dbManager = new DbManager();
    $result = $dbManager->query(User::SESSION_TABLE, [User::SESSION_ID, User::USER_FOREIGN_ID], "session_token = ? and ".User::USER_FOREIGN_ID." = ?", [$token, $anyUser->getId()]);
-   
-  echo $anyUser->getId(), $dbManager->getLastQuery();
+
 
    if($result !== false){
       $userId = $result[User::USER_FOREIGN_ID];
