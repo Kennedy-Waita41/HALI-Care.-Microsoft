@@ -13,8 +13,7 @@ class Patient extends User implements  PatientConstantsInterface ,  PatientDefau
  
 #new-traits-insert-point
 
-  private $patientId,
-          $dob;
+  private $patientId;
 
   /**
    * @param int $patientId - The Patient ID from the patient table. Usually,
