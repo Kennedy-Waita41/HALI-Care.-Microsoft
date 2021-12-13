@@ -91,8 +91,11 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
    * Assigns a consultation to a doctor and a medical.
    */
   public function assign($docId, $medId = 0){
-    $columns = [Doctor::DOC_FOREIGN_ID];
-    $values = [$docId];
+    $columns = [Consultation::CONSULT_FOREIGN_ID];
+    $values = [$this->consultationId];
+    $columns[] = Doctor::DOC_FOREIGN_ID;
+    $values[] = $docId;
+    
 
     if($medId > 0){
       $columns[] = MedAssistant::MA_FOREIGN_ID;
@@ -101,9 +104,12 @@ class Consultation implements  ConsultationConstantsInterface ,  ConsultationDef
 
     $dbManager = new DbManager();
     
-    if(!$dbManager->delete(Consultation::DOCTOR_CONSULT_TABLE, Consultation::CONSULT_FOREIGN_ID . " = ?", [$this->consultationId])
-    && 
-    $dbManager->insert(Consultation::DOCTOR_CONSULT_TABLE, $columns, $values) > 0){
+    if(!$dbManager->delete(Consultation::DOCTOR_CONSULT_TABLE, Consultation::CONSULT_FOREIGN_ID . " = ?", [$this->consultationId])){
+      
+      return false;
+    }
+    
+    if($dbManager->insert(Consultation::DOCTOR_CONSULT_TABLE, $columns, $values) < 0){
       return false;
     }
 
