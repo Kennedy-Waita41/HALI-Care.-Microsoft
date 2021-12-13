@@ -141,7 +141,7 @@
 
     $user->refresh();
     $respond = json_encode([
-        "token" => "$userId-$token",
+        "token" => "$token",
         "firstname" => $user->getFirstName(),
         "lastname" => $user->getLastName(),
         "email" => $user->getEmail(),
