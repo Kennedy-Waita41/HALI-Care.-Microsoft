@@ -15,7 +15,7 @@ require(__DIR__. "/../doctor/auth.inc.php");
         $status = Consultation::CONSULT_PENDING;
     }
 
-    $startPos = $interval($page - 1);
+    $startPos = $interval * ($page - 1);
 
     $dbManager = new DbManager();
     $docCond = Doctor::DOC_FOREIGN_ID." = ?";
