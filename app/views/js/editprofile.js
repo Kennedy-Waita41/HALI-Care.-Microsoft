@@ -77,7 +77,8 @@ function updateUser(json){
     showSuccess("successfully updated your profile");
     console.log (json.message);
     localStorage.setItem("user", json.message);
-
+    location.href="Patients/ticket.php"
+    
     return;
 }
 
@@ -103,5 +104,6 @@ function resetPassword(){
         }
 
         showSuccess(response.message);
+
     });
 }

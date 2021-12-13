@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" integrity="sha384-TX8t27EcRE3e/ihU7zmQxVncDAy5uIKz4rEkgIXeMed4M0jlfIDPvg6uqKI2xXr2" crossorigin="anonymous">
 	<script src="https://kit.fontawesome.com/00e96782cf.js" crossorigin="anonymous"></script>
-    <title>Study Smart</title>
+    <title>Halicare</title>
 </head>
 
 <style>
@@ -82,7 +82,7 @@ body, html {
             <h1 style="text-align: center;">Edit Profile</h1> &nbsp;
 
             <!--Edit Profile-->
-            <form method="POST" enctype="multipart/form-data">
+            <form >
               <?php include '../components/notification.php' ?>
                 
                 <!-- View Profile Picture-->

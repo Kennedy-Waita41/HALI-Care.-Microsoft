@@ -9,16 +9,16 @@ var successDiv = document.getElementById("success-div");
  * @param {Function} callback - callback if needed
  * @returns 
  */
-async function makeRequest(url = '', formData, callback = null, login=false, signup=false) {
+async function makeRequest(url = '', formData, callback = null, login=false, signup=false,absoluteUrl= false) {
+    if(!absoluteUrl){
     url = `../../api/${url}`;   
+    }
     let user = {token: "nothing"};
-
-    if(!login || !signup ){
+    if(!login && !signup ){
         user = window.localStorage.getItem("user");
-        if(!user){ //to make a request during login
+       if(!user){ //to make a request during login
             location.href = "login.php";
         }
-
         user = JSON.parse(user);
     }
 
@@ -137,7 +137,7 @@ function handleError(json){
     switch(json.status){
         case "NLIE":
             {
-                location.href = "login.php";
+               // location.href = "log.phpp";
                 break;
             }
         case "ALIE":

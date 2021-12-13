@@ -7,6 +7,7 @@ let firstname = document.getElementById("firstname"),
 function register(){
     if(password.value != confirmPassword.value){
         showError("Passwords do not match");
+        return;
     }
     let formData = buildFormData ({'firstname':firstname.value, 'lastname':lastname.value, 'password':password.value})
 

@@ -74,7 +74,7 @@ body, html {
           
         </div>
 
-        <form action="register.php" method="post">
+        <form >
             <div class="form-group row">
                 <label for="firstname" class="col-sm-4 col-form-label">First Name</label>
                 <div class="col-sm-8">

@@ -13,7 +13,7 @@ function loginCallBack(json) {
     }
     showSuccess("Successfully Logged In"); // Just for a time being, until we get the UI pages
     localStorage.setItem("user", json.message);
-    location.href='HomePage.php'
+    location.href='edit_profile.php'
     
     return;
 }

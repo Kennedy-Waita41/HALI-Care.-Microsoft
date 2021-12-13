@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hali Care</title>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div class="navbar">
+        <div class="container">
+            <a class="logo" href="#">Hali<span>Care</span></a>
+
+            <img id="mobile-cta" class="mobile-menu" src="images/menu.svg" alt="Open Navigation">
+
+            <nav>
+                <img id="mobile-exit" class="mobile-menu-exit" src="images/exit.svg" alt="Close Navigation">
+                
+                <ul class="primary-nav">
+                    <li class="current"><a href="#">Home</a></li>
+                    <li><a href="#">Medical Blog</a></li>
+                    <li><a href="#">Frequently asked questions</a></li>
+                </ul>
+
+                <ul class="secondary-nav">
+                    <li><a href="register.php">Signup</a></li>
+                    <li class="go-premium-cta"><a href="login.php">Sign in</a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+
+    <section class="hero">
+        <div class="container">
+            <div class="left-col">
+                <p class="subhead">Exceptional, Personalized Virtual Care</p>
+                <h1>Hali care your personal healthmate</h1>
+
+                <div class="hero-cta">
+                    <a href="#" class="primary-cta">Start your checkup</a>
+                    <a href="#" class="watch-video-cta">
+                        <img src="images/watch.svg" alt="Watch a video">Watch Medical video
+                    </a>
+                </div>
+            </div>
+
+            <img src="images/illustration.svg" class="hero-img" alt="Illustration">
+        </div>
+    </section>
+
+    <section class="features-section">
+        <div class="container">
+            <ul class="features-list">
+                <li>Free symptom checkup</li>
+                <li>Personalized doctor experience</li>
+                <li>Access your medical history</li>
+                <li>SMS healthcare followup Reminders</li>
+                <li>Real Doctor consultation</li>
+                <li>Other awesome features</li>
+            </ul>
+
+            <img src="images/doctor.jpg" alt="Doctor patient consultation">
+        </div>
+    </section>
+
+    <section class="testimonials-section">
+        <div class="container">
+            <ul>
+                <li>
+                    <img src="images/doctor1.jpg" alt="Person">
+
+                    <blockquote>"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore"</blockquote>
+                    <cite>- Jane Doe</cite>
+                </li>
+                <li>
+                    <img src="images/doctor1.jpg" alt="Person">
+
+                    <blockquote>"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore"</blockquote>
+                    <cite>- Jane Doe</cite>
+                </li>
+                <li>
+                    <img src="images/doctor1.jpg" alt="Person">
+
+                    <blockquote>"Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore"</blockquote>
+                    <cite>- Jane Doe</cite>
+                </li>
+            </ul>
+        </div>
+    </section>
+
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-left">
+                <h2>Get a healthier inbox!</h2>
+
+                <form action="">
+                    <label for="name">Name</label>
+                    <input type="text" id="name" name="name">
+
+                    <label for="message">Message</label>
+                    <textarea name="message" id="message" cols="30" rows="10"></textarea>
+
+                    <input type="submit" class="send-message-cta" value="Send message">
+                </form>
+            </div>
+            <div class="contact-right">
+                <iframe src="https://maps.google.com/maps?q=machakos&t=&z=13&ie=UTF8&iwloc=&output=embed" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+            </div>
+
+        </div>
+    </section>
+
+    <script>
+
+        const mobileBtn = document.getElementById('mobile-cta')
+              nav = document.querySelector('nav')
+              mobileBtnExit = document.getElementById('mobile-exit');
+
+        mobileBtn.addEventListener('click', () => {
+            nav.classList.add('menu-btn');
+        })
+
+        mobileBtnExit.addEventListener('click', () => {
+            nav.classList.remove('menu-btn');
+        })
+
+
+
+    </script>
+
+</body>
+</html>
