@@ -31,7 +31,7 @@ trait MedAssistantResponseTrait{
      * No Doctor Contact Info Not Set Error
      */
     public static function DCINSE(){
-        return Response::makeResponse("NCINSE", "The doctor you are trying to assign hasn't added their contact info or place of work yet. Please inform them to.");
+        return Response::makeResponse("DCINSE", "The doctor you are trying to assign hasn't added their contact info or place of work yet. Please inform them to.");
     }
 }
 

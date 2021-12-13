@@ -21,7 +21,7 @@ This folder contains consultation logic or procedures files, their expected inpu
 |   |   |
 |---|---|
 | **DESCRIPTION:**  | this script assigns a doctor to a consultation. This can only be called by a medical assistant or a doctor and requires the session token (logged in)   |
-| **EXPECTS:**  |  **doctorId: int, ticket: string** in HTTP POST request |
+| **EXPECTS:**  |  **doctorId: int, ticket: string, pUsername:string** in HTTP POST request |
 | **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
   
     

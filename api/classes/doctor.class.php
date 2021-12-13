@@ -41,7 +41,7 @@ use ApprovableTrait;
       $this->setDoctorId($doctorId);
 
       $dbManager = new DbManager();
-      $doctorInfo = $dbManager->query(Doctor::DOC_TABLE, ["*"], Doctor::DOC_ID. " = ?", [$this->id]);
+      $doctorInfo = $dbManager->query(Doctor::DOC_TABLE, ["*"], Doctor::DOC_ID. " = ?", [$this->doctorId]);
       if($doctorInfo === false) return false;
       $this->setId($doctorInfo[User::USER_FOREIGN_ID]);
       $this->setHospital($doctorInfo["hospital"]);

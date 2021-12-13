@@ -34,8 +34,12 @@ else{
         exit($globalDoctor->assignToConsultation($consultation, $medId));
     }
 
+    if($consultation->getPatientId() != User::getIdFromUserName($pUsername)){
+        exit(Respond::CNFPE());
+    }
+
     if($consultation->isAssigned() &&
-       $consultation->getPatientId() !== User::getIdFromUserName($pUsername)){
+       $consultation->getPatientId() != User::getIdFromUserName($pUsername)){
            exit(Respond::DNATCE());
        }
     exit($globalMedAssistant->assignDoctor($consultation, $docId));
