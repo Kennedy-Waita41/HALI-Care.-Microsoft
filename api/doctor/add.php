@@ -1,6 +1,5 @@
 <?php
 require('./master.inc.php');
-require('./auth.inc.php');
 
 /**
  * Description: To signup doctor 

@@ -101,3 +101,11 @@ This folder contains consultation logic or procedures files, their expected inpu
 | **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
   
     
+# addsymptoms.php
+|   |   |
+|---|---|
+| **DESCRIPTION:**  | Does what the name suggests and requires the session token (logged in)   |
+| **EXPECTS:**  |  **parameter: type** in HTTP POST request |
+| **OUTPUT OR RESPONSE** | As specified in the api/readme.md   |  
+  
+    

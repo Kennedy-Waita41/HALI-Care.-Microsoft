@@ -45,6 +45,67 @@ class Symptoms{
   }
 
   /**
+   * Adds a new symptoms to the symptoms table
+   * Will remove the old symptoms and add the new one
+   * @param DbManager $dbManager
+   */
+  private function add($dbManager = null){
+    if(empty($this->id)){
+      return Respond::NCFE(); // no consultation found error
+    }
+
+    $dbManager = ($dbManager === null) ? new DbManager(): $dbManager;
+
+    if(!$dbManager->insert(Consultation::SYMPTOMS_TABLE, [Consultation::CONSULT_FOREIGN_ID],[$this->id]) === -1){
+      return Respond::SQE();
+    }
+
+    return $this->update($dbManager);
+  }
+
+
+  /**
+   * Adds a new symptoms
+   * This function will delete the old row, and add the new one
+   */
+  public function save(){
+    $dbManager = new DbManager();
+    if(!$dbManager->delete(Consultation::SYMPTOMS_TABLE, Consultation::CONSULT_FOREIGN_ID . " = ?", [$this->id])){
+      return Respond::SQE();
+    }
+
+    return $this->add($dbManager);
+  }
+
+    /**
+   * Updates the symptoms
+   * @param DbManager $dbManager - if available
+   */
+  private function update($dbManager = null){
+    if(empty($this->id)){
+      exit(Respond::NCFE()); //no consultation found error
+    }
+
+    $values = [];
+    $updateStr = "";
+
+    if(!empty($this->symptoms)){
+      $updateStr .= "symptoms = ?";
+      $values[] = $this->symptoms;
+    }
+
+    if($dbManager == null){
+      $dbManager = new DbManager();
+    }
+    if(!$dbManager->update(Consultation::SYMPTOMS_TABLE, $updateStr, $values,Consultation::CONSULT_FOREIGN_ID ." = ?", [$this->id])){
+      return Respond::SQE();
+    }
+
+    return Respond::OK();
+  }
+
+
+  /**
    * Get the value of id
    */ 
   public function getId()
