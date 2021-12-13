@@ -19,7 +19,7 @@ require(__DIR__. "/../doctor/auth.inc.php");
 
     $dbManager = new DbManager();
     $docCond = Doctor::DOC_FOREIGN_ID." = ?";
-    $selfAssignedCond = "consult_status = ? and medAssistantId = null and $docCond";
+    $selfAssignedCond = "consult_status = ? and medAssistantId is null and $docCond";
     $notSelfAssignedCond = "consult_status = ? and medAssistantId > 0 and $docCond";
     $pendingCond = "consult_status = ". Consultation::CONSULT_PENDING;
 
@@ -33,6 +33,8 @@ require(__DIR__. "/../doctor/auth.inc.php");
         false,
         true 
         );
+
+        echo $dbManager->getLastQuery();
 
     if($mainResult === false){
         exit(Respond::SQE());

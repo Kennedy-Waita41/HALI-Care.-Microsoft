@@ -10,7 +10,7 @@ require(__DIR__.'/../doctor/auth.inc.php');
 
  $consultation = new Consultation(Consultation::getIdFromTicket($ticket));
 
- if($consultation->getDoctorId() !== $specificId){
+ if($consultation->getDoctorId() != $specificId){
      exit(Respond::DNATCE());
  }
 

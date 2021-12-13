@@ -1,7 +1,6 @@
 <?php
 require('./master.inc.php');
 
-
 /**
  * Description: To signup doctor 
  */
