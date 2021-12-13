@@ -145,6 +145,8 @@
         "firstname" => $user->getFirstName(),
         "lastname" => $user->getLastName(),
         "email" => $user->getEmail(),
+        "phone" => $user->getPhone(),
+        "dob" => $user->getDob(),
         "profileImage" => User::PROFILE_IMG_PATH."/". $user->getProfileImage(),
         "message" => $response->getMessage()
     ]);
