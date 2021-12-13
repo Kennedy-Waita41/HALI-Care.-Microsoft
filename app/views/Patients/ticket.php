@@ -14,6 +14,7 @@
         $(document).ready(function(){
             $('[data-toggle="tooltip"]').tooltip();   
         });
+        
     </script>
 </head>
 <body>
@@ -36,10 +37,10 @@
                                 echo "<thead>";
                                     echo "<tr>";
                                         echo "<th>id</th>";
-                                        echo "<th>Firstname</th>";
-                                        echo "<th>Lastname</th>";
-                                        echo "<th>Email</th>";
-                                        echo "<th>account_status</th>";
+                                        echo "<th>PatientID</th>";
+                                        echo "<th>Consult Status</th>";
+                                        echo "<th>Date of booking</th>";
+                                        
                                         echo "<th>Action</th>";
                                     echo "</tr>";
                                 echo "</thead>";
@@ -47,10 +48,9 @@
                                 while($row = $result->fetch_array()){
                                     echo "<tr>";
                                         echo "<td>" . $row['id'] . "</td>";
-                                        echo "<td>" . $row['firstname'] . "</td>";
-                                        echo "<td>" . $row['lastname'] . "</td>";
-                                        echo "<td>" . $row['email'] . "</td>";
-                                        echo "<td>" . $row['account_status'] . "</td>";
+                                        echo "<td>" . $row['patientId'] . "</td>";
+                                        echo "<td>" . $row['consult_status'] . "</td>";
+                                        echo "<td>" . $row['date_added'] . "</td>";
                                         echo "<td>";
                                             echo '<a href="read.php?id='. $row['id'] .'" class="mr-3" title="View Record" data-toggle="tooltip"><span class="fa fa-eye"></span></a>';
                                             echo '<a href="update.php?id='. $row['id'] .'" class="mr-3" title="Update Record" data-toggle="tooltip"><span class="fa fa-pencil"></span></a>';
