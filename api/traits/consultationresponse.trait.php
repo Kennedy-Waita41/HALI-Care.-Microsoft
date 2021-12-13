@@ -45,7 +45,7 @@ trait ConsultationResponseTrait{
      * Doctor Not Assigned to Consultation Error
      */
     public static function DNATCE(){
-        return Response::makeResponse("DNATCE", "The consultation with this ticket doesn't is assigned to another doctor");
+        return Response::makeResponse("DNATCE", "The consultation with this ticket is assigned to another doctor");
     }
 
 }
