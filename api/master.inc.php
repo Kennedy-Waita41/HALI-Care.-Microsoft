@@ -25,10 +25,11 @@ spl_autoload_register(function($name){
  $currentUsername = "";
  $globalUserType = "";
  $sessionId;
+ $token = "";
  //checking if the user is logged in.
 
  if(isset($_SERVER["HTTP_AUTH"])){
-   $auth = $_SERVER["HTTP_AUTH"];
+   $token = $auth = $_SERVER["HTTP_AUTH"];
    $auth = preg_split("/-/", $auth);
 
    if(count($auth) < 3){
