@@ -10,7 +10,7 @@
 
 # Sequence Diagrams
 ## Consultation initiation and Symptoms collection
-Here, the patient requests a consulation for which a ticket is given. Afterwards, they are taken to AzureHealth chatbot for their symptoms collection. Azure then sents the compiled result to HaliCare database.
+Here, the patient requests a consulation for which a ticket is given. Afterwards, they are taken to AzureHealth chatbot for their symptoms collection. Azure then sents the compiled result to HaliCare database.  
 ![System Sequence for Symptoms collection](https://user-images.githubusercontent.com/56189552/145804351-3bf0e556-1e96-4b38-84c4-64ce24f8ba29.png)
 
 ## Vital signs addition by the patient
