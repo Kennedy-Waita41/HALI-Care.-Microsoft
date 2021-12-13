@@ -12,4 +12,13 @@
 ## System sequence diagram for symptoms collection
 ![System Sequence for Symptoms collection](https://user-images.githubusercontent.com/56189552/145804351-3bf0e556-1e96-4b38-84c4-64ce24f8ba29.png)
 
-## System sequence diagram for vitals collection
+## Sequence diagram for vital signs addition by the patient
+In this diagram, only the patient is present and are adding their own vital signs for their consultation
+![Adding vital signs by patient](https://user-images.githubusercontent.com/56189552/145809488-d86c6ce2-49a8-4a71-9111-693f9ba3d6ae.png)
+  
+  
+## Sequence diagram for vital signs addition by a medical assistant
+In this diagram, the patient has visited a facility and a medical assistant is adding their vital signs for a consultation they have already requested.
+![Adding vital signs by medical assistant](https://user-images.githubusercontent.com/56189552/145810505-1bce0dba-b308-4c24-bc9a-b7a9ff079220.png)
+
+
