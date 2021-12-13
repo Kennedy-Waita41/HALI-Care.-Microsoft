@@ -7,28 +7,32 @@ require('./master.inc.php');
 
     $interval = (int)$_POST["interval"];
     $page = (int)$_POST["page"];
-    $selfAssigned = boolval((int)$_POST['selfAssigned']);
-    $status = (int)$_POST["status"];
+    $specialization = isset($_POST["specialization"]) ? $_POST["specialization"] : null;
+    $hospital = isset($_POST["hospital"]) ? $_POST["hospital"] : null;
 
-    if($status < Consultation::CONSULT_PENDING || $status > Consultation::CONSULT_COMPLETE){
-        $status = Consultation::CONSULT_PENDING;
-    }
-
-    $startPos = $interval($page - 1);
+    $startPos = $interval * ($page - 1);
 
     $dbManager = new DbManager();
-    $docCond = Doctor::DOC_FOREIGN_ID." = ?";
-    $selfAssignedCond = "consult_status = ? and medAssistantId = null and $docCond";
-    $notSelfAssignedCond = "consult_status = ? and medAssistantId > 0 and $docCond";
-    $pendingCond = "consult_status = ". Consultation::CONSULT_PENDING;
-
-    
+    if($specialization && $hospital){
+        $condition = "specialization = ? and hospital = ?";
+        $values = [$specialization, $hospital];
+    }else if($specialization){
+        $condition = "specialization = ?";
+        $values = [$specialization];
+    }else if($hospital){
+        $condition = "hospital = ?";
+        $values = [$hospital];
+    }else{
+        $condition = "1";
+        $values = [];
+    }
+     
 
     $mainResult = $dbManager->query( 
-        Consultation::CONSULT_TABLE." inner join ".Consultation::DOCTOR_CONSULT_TABLE." on ".Consultation::CONSULT_ID." = ".Consultation::CONSULT_FOREIGN_ID, 
-        [ Consultation::CONSULT_ID ], 
-        ($status === Consultation::CONSULT_PENDING)? $pendingCond : (($selfAssigned) ? $selfAssignedCond : $notSelfAssignedCond ) . " LIMIT $startPos, $interval", 
-        ($status == Consultation::CONSULT_PENDING) ? [] : [$status, $globalDoctor->getdoctorId()],
+        Doctor::DOC_TABLE." inner join ".User::USER_TABLE." on ".User::USER_FOREIGN_ID." = ".User::USER_ID, 
+        [ Doctor::DOC_ID ], 
+        $condition . " LIMIT $startPos, $interval", 
+        $values,
         false,
         true 
         );
@@ -38,79 +42,31 @@ require('./master.inc.php');
     }
 
     $reponse = [
-        "consultations" => [],
-        "patients" => [],
-        "medicalAssistants" => []
+        "doctors" => []
     ];
 
-    //consultation ids are all available
-    $consultations = [];
-    $patients = [];
-    $medicalAssistants = [];
+    //doctor ids are all available
+    $doctors = [];
 
     foreach ($mainResult as $idInfo){
-        $consultationId = $idInfo["id"];
+        $doctorId = $idInfo["id"];
 
-        $conResult = [];
-        $consultation = new Consultation($consultationId);
+        $docResult = [];
+        $doctor = new Doctor($doctorId);
 
-        $conResult["id"] = $consultation->getConsultationId();
-        $conResult["patientId"] = $consultation->getPatientId();
-        $conResult["doctorId"] = $consultation->getDoctorId();
-        $conResult["symptoms"] = $consultation->getSymptoms()->getSymptoms();
+        $docResult["id"] = $doctor->getdoctorId();
+        $docResult["firstname"] = $doctor->getFirstName();
+        $docResult["lastname"] = $doctor->getLastName();
+        $docResult["phone"] = $doctor->getPhone();
+        $docResult["hospital"] = $doctor->getHospital();
+        $docResult["specialization"] = $doctor->getSpecialization();
 
-        $patientVitals = [];
-        $vitalSigns = $consultation->getVitalSigns();
-        $patientVitals["bodyTemp"] = $vitalSigns->getBodyTemperature();
-        $patientVitals["respRate"] = $vitalSigns->getRespirationRate();
-        $patientVitals["pulseRate"] = $vitalSigns->getPulseRate();
-        $patientVitals["bloodPressure"] = $vitalSigns->getBloodPressure();
-        $patientVitals["dateAdded"] = $vitalSigns->getCreatedOn();
-
-        $conResult["patientVitals"] = $patientVitals;
-        $conResult["dateAdded"] = $consultation->getDateAdded();
-        $conResult["dateAssigned"] = $consultation->getDateAssigned();
-        $conResult["status"] = $consultation->getConsultationStatus();
-        $conResult["medAssistant"] = $consultation->getMedAssistantId();
-        $conResult["isAssigned"] = $consultation->isAssigned();
-        
-        $consultations[] = $conResult;
-        unset($conResult);
-
-        $patResult = [];
-        $patient = new Patient($consultation->getPatientId());
-        $patResult["id"] = $patient->getPatientId();
-        $patResult["firstname"] = $patient->getFirstName();
-        $patResult["lastname"] = $patient->getLastName();
-        $patResult["dob"] = $patient->getDob();
-        $patResult["phone"] = $patient->getPhone();
-        $patResult["email"] = $patient->getEmail();
-        $patResult["profileImageLink"] = $patient->getProfileImage();
-
-        $patients["c".$consultation->getConsultationId()] = $patResult;
-        unset($patResult);
-
-        if($consultation->isAssigned() && !empty($consultation->getMedAssistantId())){
-            $maResult = [];
-
-            $ma = new MedAssistant($consultation->getMedAssistantId());
-            $maResult["id"] = $ma->getMAId();
-            $maResult["firstname"] = $ma->getFirstName();
-            $maResult["lastname"] = $ma->getLastName();
-            $maResult["dob"] = $ma->getDob();
-            $maResult["phone"] = $ma->getPhone();
-            $maResult["email"] = $ma->getEmail();
-            $maResult["profileImageLink"] = $ma->getProfileImage();
-
-            $medicalAssistants["c".$consultation->getConsultationId()] = $maResult;
-            unset($maResult);
-        }
+        $doctors = $docResult;
+        unset($docResult);
     }
 
 
-    $response["consultations"] = $consultations;
-    $response["patients"] = $patients;
-    $response["medicalAssistants"] = $medicalAssistants;
+    $response["doctors"] = $doctors;
 
     exit(Respond::makeResponse(Respond::STATUS_OK, json_encode($response)));
 ?>
