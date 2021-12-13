@@ -89,12 +89,12 @@ body, html {
               </div>
             </div>
 
-            <div class="form-group row">
+            <!-- <div class="form-group row">
               <label for="hospitalname" class="col-sm-4 col-form-label">Hospital Name</label>
               <div class="col-sm-8">
                 <input type="text" class="form-control" name="hospitalname" style="text-transform: capitalize;" autocomplete="off" required="true" placeholder="Last name" id="hospitalname">
               </div>
-            </div>
+            </div> -->
 
             <div class="form-group row">
               <label for="email" class="col-sm-4 col-form-label">Email Address</label>
