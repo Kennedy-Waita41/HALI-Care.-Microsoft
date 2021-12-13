@@ -16,8 +16,8 @@
 			<form method="post" action="<?php echo BASE_URL . 'Patients/P_user.php'; ?>" >
             <h2 id="Ticket-number">Ticketnumber</h2>
 
-				<button type="button" class="btn" name="craete_btn" onclick="newTicket()">New Consultation</button>
-				<button type="button" class="btn" name="craete_btn" onclick="chatbot()"><a href="https://healthcare-bot-zg7w6qp64uv4e.azurewebsites.net"> Add symptoms</a></button>
+				<button type="button" class="btn" style="position:left;" onclick="newTicket()">New Consultation</button>
+				<button type="button" class="btn" style="position:right;" onclick="chatbot()"><a href="https://healthcare-bot-zg7w6qp64uv4e.azurewebsites.net"> Add symptoms</a></button>
 				
 			</form>
 		</div>

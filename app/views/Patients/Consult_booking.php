@@ -11,7 +11,7 @@
 		<div class="action">
 		<h1 class="page-title">Request A virtual consultation</h1>
 
-         <form method="post" action="<?php echo BASE_URL . 'Patients/Consult_booking.php'; ?>" >
+         <form method="post" action="Consult_booking.php" >
 		 <select class="role"  name="reason">
 			          <option value="" selected disabled>Reason for consultation</option>
 			        <option value="Unwell">I am feeling sick(Unwell)</option>

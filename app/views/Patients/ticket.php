@@ -25,7 +25,7 @@
                 <div class="col-md-12">
                     <div class="mt-5 mb-3 clearfix">
                         <h2 class="pull-left">Patient Ticket</h2>
-                        <a href="Consult_booking.php" class="btn btn-success pull-right" style="position: center"><i class="fa fa-plus"></i> Book new consultation</a>
+                        <a href="P_user.php" class="btn btn-success pull-right" style="position: center"><i class="fa fa-plus"></i> Book new consultation</a>
                     </div>
                     <?php
                     $conn = mysqli_connect("localhost", "root", "", "halicare");

@@ -35,10 +35,10 @@ body, html {
 <!-- Navbar (sit on top) -->
 <div class="w3-top">
   <div class="w3-bar w3-card" style="background-color: #f5f6fa" id="myNavbar">
-    <a href="HomePage.php" style="text-decoration:none" class="w3-bar-item w3-button w3-wide"><strong>HALI Care</strong></a>
+    <a href="index.html" style="text-decoration:none" class="w3-bar-item w3-button w3-wide"><strong>HALI Care</strong></a>
     <!-- Right-sided navbar links -->
     <div class="w3-right w3-hide-small">
-      <a href="AboutUs.php" style="text-decoration:none" target="_blank" class="w3-bar-item w3-button">ABOUT</a>
+      <a href="#" style="text-decoration:none" target="_blank" class="w3-bar-item w3-button">ABOUT</a>
       <a href="Contact.php" style="text-decoration:none" target="_blank" class="w3-bar-item w3-button">CONTACT </a>
       <a href="login.php" style="text-decoration:none" class="w3-bar-item w3-button"><i class=""></i> LOGIN </a> 
       <a href="register.php" style="text-decoration:none" class="w3-bar-item w3-button"><i class=""></i> SIGN UP</a>

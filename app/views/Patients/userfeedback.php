@@ -28,9 +28,7 @@
                     <input type="submit" class="create_btn" value="Send message">
                 </form>
 
-		<iframe src="https://tokbox.com/embed/embed/ot-embed.js?embedId=[YOUR EMBED ID]&iframe=true&room=DEFAULT" allow="microphone; camera">
-</iframe>
-</div>
+		</div>
       
 
 

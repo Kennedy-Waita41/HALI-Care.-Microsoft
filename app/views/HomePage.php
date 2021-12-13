@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!-- <!DOCTYPE html>
 <html>
 <title>HALI Care</title>
 <meta charset="UTF-8">
@@ -28,7 +28,7 @@ body, html {
 </style>
 <body>
 
-<!-- Navbar (sit on top) -->
+ <!-- Navbar (sit on top)  -->
 <div class="w3-top">
   <div class="w3-bar w3-card" style="background-color: #f5f6fa" id="myNavbar">
     <a href="HomePage.php" class="w3-bar-item w3-button w3-wide" ><strong>HALI Care (Logo)</strong></a>
@@ -90,4 +90,4 @@ function w3_close() {
 </script>
 
 </body>
-</html>
+</html> -->
