@@ -1,9 +1,14 @@
-body > table{
+
+
+body>table {
     width: 80%;
+    
+    
 }
 
 table{
     border-collapse: collapse;
+    float: left; width: 47%; 
 }
 table.list{
     width:100%;
@@ -41,6 +46,7 @@ input[type=submit]{
 
 form div.form-action-buttons{
     text-align: right;
+    
 }
 
 a{

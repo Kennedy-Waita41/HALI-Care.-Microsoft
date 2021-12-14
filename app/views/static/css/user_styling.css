@@ -2,7 +2,7 @@
 * STYLING DEFAULTS
 * * * * * * * * * */
 * { margin: 0px; padding: 0px; }
-a { text-decoration: none; }
+a { text-decoration: none; color: white; }
 h1, h2, h3, h4, h5, h6 { font-family: 'Noto Serif', serif; }
 /* forms */
 form { width: 60%; margin: 5px auto; padding-bottom: 50px; }
