@@ -33,3 +33,12 @@ In this diagram, a consultation gets assigned to a medical doctor by a medical a
 ## Doctor assigns self to consultation
 In this diagram, the doctor assigns themselves to a consultation.
 ![Doctor Assigns Self to Consultation](https://user-images.githubusercontent.com/56189552/145816017-0c2c5ed2-683d-4f72-903d-bb3ef3fbb6bc.png)
+
+## Chatbot Integration Diagram
+![image](https://user-images.githubusercontent.com/57445279/146039609-58cf766d-3687-4f9f-8785-3f9c88e187ac.png)
+
+
+## Chatbot Sequence Diagram
+![image](https://user-images.githubusercontent.com/57445279/146039371-b97a7821-eec7-4be3-90e5-356691b09b92.png)
+
+
