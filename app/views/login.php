@@ -37,7 +37,7 @@ body, html {
   <div class="w3-bar w3-card" style="background-color: #f5f6fa" id="myNavbar">
     <a href="index.html" style="text-decoration:none" class="w3-bar-item w3-button w3-wide"><strong>HALI Care</strong></a>
     <!-- Right-sided navbar links -->
-    <div class="w3-right w3-hide-small">
+    <div class="w3-right w3-hide-small" style="background-color: light-blue">
       <a href="#" style="text-decoration:none" target="_blank" class="w3-bar-item w3-button">ABOUT</a>
       <a href="Contact.php" style="text-decoration:none" target="_blank" class="w3-bar-item w3-button">CONTACT </a>
       <a href="login.php" style="text-decoration:none" class="w3-bar-item w3-button"><i class=""></i> LOGIN </a> 
