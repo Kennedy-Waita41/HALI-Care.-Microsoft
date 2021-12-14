@@ -7,7 +7,7 @@
 5. set up your env.json following the env example
 7. run the `php hali --migrate` command.
 
-# System Demo Presentations
+# System Demo Video Presentations
 Frontend demo - https://github.com/Kennedy-Waita41/HALI-Care.-Microsoft/blob/main/Front%20end%20of%20the%20system.mp4 <br/>
 Backend demo - https://github.com/Kennedy-Waita41/HALI-Care.-Microsoft/blob/main/Sequence%20Diagram%20and%20System%20functionalities.mp4
 
